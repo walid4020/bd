@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr"> 
+    <head>
+        <meta charset="UTF-8">
+        <title> Connexion </title>
+    </head>
+    <body> 
+        <form action="connexion_reception_des_donnees.php" method="post"> 
+        <h1> Connexion </h1>
+
+        <label for="id_pour_input_email"> Email: </label>
+             <input type="email"name="email" placeholder="exemple.email@gmail.com" id="id_pour_input_email"required>
+
+        <label for="id_pour_input_mdp"> Mot de passe :</label>
+            <input type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8"required>
+
+        <button type ="submit" name="bouton submit"> Envoyer </button>
+        </form>
+    </body>
+</html>
