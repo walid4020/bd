@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr"> 
+    <head>
+        <meta charset="UTF-8">
+        <title> Création groupe </title>
+    </head>
+    <body> 
+        <form action="creation_groupe_reception_des_donnees.php" method="post"> 
+        <h1> Créer un groupe de dépense </h1>
+
+        <label for="id_pour_input_nom_groupe"> Nom du groupe : </label>
+             <input type="text"name="group creating" placeholder="Vacances Barcelone" id="id_pour_input_nom_groupe"required>
+
+             <!-- Ajouter un champ pour ajouter des emails multiples -->
+
+        <label for="id_pour_input_description_groupe"> Description du groupe : </label>
+            <input type="text" id="id_pour_input_description_groupe" name="group description" required>
+
+         <label for="id_pour_input_devises"> Devise : </label>
+             <select name="currencies"id="id_pour_input_devises">
+                <option value="EUR">Euro</option>
+                <option value="USD">Dollard américain</option>
+                <option value="JPY">Yen</option>
+                <option value="GBP">Livre sterling</option>
+                <option value="AUD"> Dollard australien </option>
+                <option value="Autre">Autre</option>
+            </select> 
+
+        <button type ="submit" name="bouton submit"> Créer une nouvelle dépense </button>
+        </form>
+    </body>
+</html>
