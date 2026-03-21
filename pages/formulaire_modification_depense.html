@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr"> 
+    <head>
+        <meta charset="UTF-8">
+        <title> Modification de la dépense </title>
+    </head>
+    <body> 
+        <form action="modification_depense_reception_des_donnees.php" method="post"> 
+        <h1> Modifier la dépense </h1>
+            <p> 
+                <label for="id_pour_input_nom_depense"> Nom de la dépense: </label>
+                    <input type="text"name="expense name" value="restaurant" id="id_pour_input_nom_depense"required>
+            </p>
+            <p> 
+            <!-- PHP par la suite pour insérer les données pré-selectionnées dans le form de création d'une dépense-->
+                <label for="id_pour_input_montant"> Montant :</label>
+                    <input type="number" step="0.01" id="id_pour_input_montant" name="amount" value="45€" >
+            </p>
+            <p> 
+                <label for="id_pour_input_devises_montant"> Devise : </label>
+                <select name="currencies"id="id_pour_input_devises_montant">
+                    <option value="EUR">Euro</option>
+                    <!-- simulation d'une donnée pré-selectionnée avec selected avant l'ajout du PHP-->
+                        <option value="USD" selected> Dollard américain</option>
+                        <option value="JPY">Yen</option>
+                        <option value="GBP">Livre sterling</option>
+                        <option value="AUD"> Dollard australien </option>
+                        <option value="Autre">Autre</option>
+                </select> 
+            </p>
+            <p> 
+            <!-- Trouver un moyen pour que les noms proposés soient les noms des personnes participant au groupe -->
+            <!-- à faire plus tard avec une boucle en PHP--> 
+                <label for="id_pour_input_paye_par"> Payé par : </label>
+                    <select name="payed by"id="id_pour_input_paye_par">
+                        <option value="1">Personne 1 </option>
+                        <option value="2">Personne 2</option>
+                        <!-- simulation d'une donnée pré-selectionnée avec selected avant l'ajout du PHP-->
+                        <option value="3"selected>Personne 3</option>
+                        <option value="4">Personne 4 </option>
+            </p>   
+            <p>
+                <label for="id_pour_input_date"> Date :</label>
+                    <input type="datetime-local" id="id_pour_input_date" name="expense date" value="">
+            </p>
+
+            <p> 
+            <!-- Insertion d'un ticket de caisse -->
+                <label for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
+                    <input type="file" id="id_pour_ticket" name="receipt" accept=".pdf,image/*">
+            </p>
+
+            </p>
+                <button type ="submit" name="bouton submit"> Enregistrer les modifications </button>
+            </p> 
+        </form>
+    </body>
+</html>
