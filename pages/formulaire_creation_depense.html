@@ -7,13 +7,15 @@
     <body> 
         <form action="creation_depense_reception_des_donnees.php" method="post"> 
         <h1> Créer une nouvelle dépense </h1>
-
+        <p>   
         <label for="id_pour_input_nom_depense"> Nom de la dépense: </label>
              <input type="text"name="expense name" placeholder="restaurant" id="id_pour_input_nom_depense"required>
-
+        </p>
+        <p>
         <label for="id_pour_input_montant"> Montant :</label>
             <input type="number" step="0.01" id="id_pour_input_montant" name="amount" placeholder="45€" required>
-        
+        </p>
+        <p>
         <label for="id_pour_input_devises_montant"> Devise : </label>
             <select name="currencies"id="id_pour_input_devises_montant">
                 <option value="EUR">Euro</option>
@@ -23,7 +25,8 @@
                 <option value="AUD"> Dollard australien </option>
                 <option value="Autre">Autre</option>
             </select> 
-
+        </p>
+        <p>
             <!-- Trouver un moyen pour que les noms proposés soient les noms des personnes participant au groupe -->
             <!-- à faire plus tard avec une boucle en PHP--> 
         <label for="id_pour_input_paye_par"> Payé par : </label>
@@ -32,15 +35,19 @@
                 <option value="2">Personne 2</option>
                 <option value="3">Personne 3</option>
                 <option value="4">Personne 4 </option>
-                
+        </p>   
+        <p>    
          <label for="id_pour_input_date"> Date :</label>
             <input type="datetime-local" id="id_pour_input_date" name="expense date">
-
+        </p>
+        <p>
         <!-- Insertion d'un ticket de caisse -->
          <label for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
             <input type="file" id="id_pour_ticket" name="receipt" accept=".pdf,image/*">
-
-        <button type ="submit" name="bouton submit"> Envoyer </button>
+        </p>
+        <p>
+            <button type ="submit" name="bouton submit"> Envoyer </button>
+        </p>
         </form>
     </body>
 </html>
