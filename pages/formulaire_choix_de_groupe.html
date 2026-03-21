@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr"> 
+    <head>
+        <meta charset="UTF-8">
+        <title> Choisir un groupe </title>
+    </head>
+    <body> 
+        <!-- attention pas de fichier php "consultation_groupe" déjà crée-->
+        <form action="consultation_groupe.php" method="post"> 
+        <h1> Mes groupes de dépense </h1>
+        
+        <!-- utilisation d'une boucle PHP plus tard pour sychroniser les noms de groupes avec ceux dans la BD-->
+        <p> 
+            <label for="id_selection_de_groupe"> Quel groupe souhaitez-vous consulter ? </label>
+            <br>
+            <select name="group_id" id="id_selection_de_groupe" required>
+                <option value="">-- Veuillez choisir un groupe --</option>
+                <option value="101">Vacances au Ski 2026</option>
+                <option value="102">Colocation 2026 </option>
+                <option value="103">Projet BAC2 - Informatique</option>
+                <option value="104">Anniversaire de Théo </option>
+            </select>
+        </p>
+
+        <p>
+            <button type ="submit" name="bouton submit"> Afficher les comptes du groupe </button>
+        </p>
+        </form>
+    </body>
+</html>
