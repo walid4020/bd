@@ -3,18 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <title> Connexion </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
     <body> 
-        <form action="connexion_reception_des_donnees.php" method="post"> 
-        <h1> Connexion </h1>
+        <section class="section">
+            <div class="container" style="max-width: 500px;">
+                <div class="box">
+                    <form action="connexion_reception_des_donnees.php" method="post"> 
+                    <h1 class="has-text-centered title has-text-primary-bold"> Connexion </h1>
 
-        <label for="id_pour_input_email"> Email: </label>
-             <input type="email"name="email" placeholder="exemple.email@gmail.com" id="id_pour_input_email"required>
-
-        <label for="id_pour_input_mdp"> Mot de passe :</label>
-            <input type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8"required>
-
-        <button type ="submit" name="bouton submit"> Envoyer </button>
-        </form>
+                     <label for="id_pour_input_email"> Email: </label>
+                        <div class="control">
+                            <input class="input" type="email"name="email" placeholder="exemple.email@gmail.com" id="id_pour_input_email"required>
+                        </div>
+                        <br>
+                        
+                    <label for="id_pour_input_mdp"> Mot de passe :</label>
+                        <div class="control">
+                            <input class="input" type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8"required>
+                        </div>
+                        <br> 
+                    <button type ="submit" name="bouton submit"class="button is-primary is-fullwidth has-text-white"> Envoyer </button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
