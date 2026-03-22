@@ -5,7 +5,7 @@
         <title> Création d'une dépense </title>
     </head>
     <body> 
-        <form action="creation_depense_reception_des_donnees.php" method="post"> 
+        <form action="creation_depense_reception_des_donnees.php" method="post" enctype="multipart/form-data"> 
         <h1> Créer une nouvelle dépense </h1>
         <p>   
         <label for="id_pour_input_nom_depense"> Nom de la dépense: </label>
@@ -35,6 +35,7 @@
                 <option value="2">Personne 2</option>
                 <option value="3">Personne 3</option>
                 <option value="4">Personne 4 </option>
+            </select>
         </p>   
         <p>    
          <label for="id_pour_input_date"> Date :</label>
