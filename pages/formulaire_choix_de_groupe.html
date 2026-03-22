@@ -3,28 +3,47 @@
     <head>
         <meta charset="UTF-8">
         <title> Choisir un groupe </title>
+        <!-- balise permettant de relier notre HTML au framework bulma-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
     <body> 
+        <!-- CSS : création du "contenant" du formulaire cardre blanc-->
+        <section class="section">
+            <div class="container" style="max-width: 500px;">
+                <div class="box">
+                     
         <!-- attention pas de fichier php "consultation_groupe" déjà crée-->
-        <form action="consultation_groupe.php" method="post"> 
-        <h1> Mes groupes de dépense </h1>
+                <form action="consultation_groupe.php" method="post"> 
+        
+            <!-- CSS : ajout de classe pour changer l'apparence du titre (voir por changer de couleur)-->
+        <h1 class="has-text-centered title has-text-primary-bold"> Mes groupes de dépense </h1>
         
         <!-- utilisation d'une boucle PHP plus tard pour sychroniser les noms de groupes avec ceux dans la BD-->
-        <p> 
-            <label for="id_selection_de_groupe"> Quel groupe souhaitez-vous consulter ? </label>
-            <br>
-            <select name="group_id" id="id_selection_de_groupe" required>
-                <option value="">-- Veuillez choisir un groupe --</option>
-                <option value="101">Vacances au Ski 2026</option>
-                <option value="102">Colocation 2026 </option>
-                <option value="103">Projet BAC2 - Informatique</option>
-                <option value="104">Anniversaire de Théo </option>
-            </select>
-        </p>
+        <!-- CSS : meilleur espacement avec : <div class="field"> -->
+        <div class="field">
+            <label class="has-text-centered label" for="id_selection_de_groupe"> Quel groupe souhaitez-vous consulter ? </label>
+        </div>
+            <!-- CSS : ajout div class = (2) -->
+            <div class="control">
+                <div class="select is-fullwidth">
+                    <select name="group_id" id="id_selection_de_groupe" style="text-align-last: center;" required>
+                        <option value="">-- Veuillez choisir un groupe --</option>
+                        <option value="101">Vacances au Ski 2026</option>
+                        <option value="102">Colocation 2026 </option>
+                        <option value="103">Projet BAC2 - Informatique</option>
+                        <option value="104">Anniversaire de Théo </option>
+                    </select>
+                </div>
+            </div>
+        </div>
 
         <p>
-            <button type ="submit" name="bouton submit"> Afficher les comptes du groupe </button>
+            <!-- CSS : Ajout de has-text-white-->
+            <button type="submit" name="bouton submit" class="button is-primary is-fullwidth has-text-white">Afficher les comptes du groupe </button>
         </p>
+            </div>
+            </div>
+        </section>
         </form>
     </body>
 </html>
