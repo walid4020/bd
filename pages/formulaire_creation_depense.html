@@ -6,8 +6,7 @@
         <!-- balise permettant de relier notre HTML au framework bulma-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
-    <!-- CSS : centrer le corps du texte -->
-    <body class="has-text-centered"> 
+    <body> 
         <!-- CSS : création du "contenant" du formulaire cardre blanc-->
         <section class="section">
             <div class="container" style="max-width: 500px;">
@@ -17,21 +16,21 @@
         <h1 class="has-text-centered title has-text-primary-bold"> Créer une nouvelle dépense </h1>
         <p>  
          <div class="field">
-            <label for="id_pour_input_nom_depense"> Nom de la dépense: </label>
+            <label class="label mb-3" for="id_pour_input_nom_depense"> Nom de la dépense: </label>
              <div class="control has-icons-left">
                 <!-- CSS : Rendre le cadre moins épais-->
                 <input class="input is-small" type="text"name="expense name" placeholder="restaurant" id="id_pour_input_nom_depense"required>
             </div>
         </p>
         <p>
-        <label for="id_pour_input_montant"> Montant :</label>
+        <label class="label mb-3" for="id_pour_input_montant"> Montant :</label>
         <div class="control has-icons-left">
             <!-- CSS : Rendre le cadre moins épais-->
             <input class="input is-small" type="number" step="0.01" id="id_pour_input_montant" name="amount" placeholder="45€" required>
         </div>
         </p>
         <p>
-        <label for="id_pour_input_devises_montant"> Devise : </label>
+        <label class="label mb-3" for="id_pour_input_devises_montant"> Devise : </label>
              <!-- CSS : ajout div class = (2) -->
             <div class="control">
                 <div class="select is-fullwidth">
@@ -49,7 +48,7 @@
         <p>
             <!-- Trouver un moyen pour que les noms proposés soient les noms des personnes participant au groupe -->
             <!-- à faire plus tard avec une boucle en PHP--> 
-        <label for="id_pour_input_paye_par"> Payé par : </label>
+        <label class="label mb-3" for="id_pour_input_paye_par"> Payé par : </label>
              <div class="control">
                 <div class="select is-fullwidth">
                     <select name="payed by"id="id_pour_input_paye_par">
@@ -62,7 +61,7 @@
              </div>
         </p>   
         <p>  
-         <label for="id_pour_input_date"> Date :</label>
+         <label class="label mb-3" for="id_pour_input_date"> Date :</label>
          <div class="control has-icons-left">
             <!-- CSS : Rendre le cadre moins épais-->
             <input class="input is-small" type="datetime-local" id="id_pour_input_date" name="expense date">
@@ -70,7 +69,7 @@
         </p>
         <p>
         <!-- Insertion d'un ticket de caisse -->
-         <label for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
+         <label class="label mb-3" for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
             <input type="file" id="id_pour_ticket" name="receipt" accept=".pdf,image/*">
        </div>
         </p>

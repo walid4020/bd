@@ -3,30 +3,47 @@
     <head>
         <meta charset="UTF-8">
         <title> Création groupe </title>
+         <!-- balise permettant de relier notre HTML au framework bulma-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
-    <body> 
+    <body>
+        <!-- CSS : création du "contenant" du formulaire cardre blanc-->
+        <section class="section">
+            <div class="container" style="max-width: 500px;">
+                <div class="box">
+        <form action="creation_depense_reception_des_donnees.php" method="post" enctype="multipart/form-data"> 
+        <!-- CSS : ajout de classe pour changer l'apparence du titre (voir pour changer de couleur)-->
         <form action="creation_groupe_reception_des_donnees.php" method="post"> 
-        <h1> Créer un groupe de dépense </h1>
+        <h1 class="has-text-centered title has-text-primary-bold"> Créer un groupe de dépense </h1>
 
-        <label for="id_pour_input_nom_groupe"> Nom du groupe : </label>
-             <input type="text"name="group creating" placeholder="Vacances Barcelone" id="id_pour_input_nom_groupe"required>
+        <label class="label mb-3" for="id_pour_input_nom_groupe"> Nom du groupe : </label>
+             <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="text"name="group creating" placeholder="Vacances Barcelone" id="id_pour_input_nom_groupe"required>
 
-        <label for="id_pour_input_email_membre_1"> Membre n°1 : </label>
-            <input type="email"name="member 1" placeholder ="alexia@gmail.com" id="id_pour_input_email_membre_1" required> 
+        <label class="label mb-3" for="id_pour_input_email_membre_1"> Membre n°1 : </label>
+            <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="email"name="member 1" placeholder ="alexia@gmail.com" id="id_pour_input_email_membre_1" required> 
 
-        <label for="id_pour_input_email_membre_2"> Membre n°2 : </label>
-            <input type="email"name="member 2" placeholder ="thomas@gmail.com" id="id_pour_input_email_membre_2">
+        <label class="label mb-3" for="id_pour_input_email_membre_2"> Membre n°2 : </label>
+            <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="email"name="member 2" placeholder ="thomas@gmail.com" id="id_pour_input_email_membre_2">
 
-        <label for="id_pour_input_email_membre_3"> Membre n°3 : </label>
-            <input type="email"name="member 3" placeholder ="lola@gmail.com" id="id_pour_input_email_membre_3">
+        <label class="label mb-3" for="id_pour_input_email_membre_3"> Membre n°3 : </label>
+            <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="email"name="member 3" placeholder ="lola@gmail.com" id="id_pour_input_email_membre_3">
 
-        <label for="id_pour_input_email_membre_4"> Membre n°4 : </label>
-            <input type="email"name="member 4" placeholder ="carl@gmail.com" id="id_pour_input_email_membre_4">
+        <label class="label mb-3" for="id_pour_input_email_membre_4"> Membre n°4 : </label>
+            <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="email"name="member 4" placeholder ="carl@gmail.com" id="id_pour_input_email_membre_4">
 
-        <label for="id_pour_input_description_groupe"> Description du groupe : </label>
-            <input type="text" id="id_pour_input_description_groupe" name="group description" required>
+        <label class="label mb-3" for="id_pour_input_description_groupe"> Description du groupe : </label>
+           <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="text" id="id_pour_input_description_groupe" name="group description" required>
 
-         <label for="id_pour_input_devises"> Devise : </label>
+         <label class="label mb-3" for="id_pour_input_devises"> Devise : </label>
+         <!-- CSS : ajout div class = (2) -->
+          <div class="control">
+                <div class="select is-fullwidth">
              <select name="currencies"id="id_pour_input_devises">
                 <option value="EUR">Euro</option>
                 <option value="USD">Dollard américain</option>
@@ -35,8 +52,10 @@
                 <option value="AUD"> Dollard australien </option>
                 <option value="Autre">Autre</option>
             </select> 
-
-        <button type ="submit" name="bouton submit"> Créer une nouvelle dépense </button>
+                </div>
+          </div>
+        <!-- CSS : Ajout de has-text-white-->
+        <button type ="submit" name="bouton submit" class="button is-primary is-fullwidth has-text-white"> Créer une nouvelle dépense </button>
         </form>
     </body>
 </html>
