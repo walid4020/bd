@@ -18,12 +18,16 @@
         <p>  
          <div class="field">
             <label for="id_pour_input_nom_depense"> Nom de la dépense: </label>
-             <input type="text"name="expense name" placeholder="restaurant" id="id_pour_input_nom_depense"required>
+             <div class="control has-icons-left">
+                <!-- CSS : Rendre le cadre moins épais-->
+                <input class="input is-small" type="text"name="expense name" placeholder="restaurant" id="id_pour_input_nom_depense"required>
+            </div>
         </p>
         <p>
         <label for="id_pour_input_montant"> Montant :</label>
         <div class="control has-icons-left">
-            <input type="number" step="0.01" id="id_pour_input_montant" name="amount" placeholder="45€" required>
+            <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="number" step="0.01" id="id_pour_input_montant" name="amount" placeholder="45€" required>
         </div>
         </p>
         <p>
@@ -59,7 +63,10 @@
         </p>   
         <p>  
          <label for="id_pour_input_date"> Date :</label>
-            <input type="datetime-local" id="id_pour_input_date" name="expense date">
+         <div class="control has-icons-left">
+            <!-- CSS : Rendre le cadre moins épais-->
+            <input class="input is-small" type="datetime-local" id="id_pour_input_date" name="expense date">
+        </div>
         </p>
         <p>
         <!-- Insertion d'un ticket de caisse -->
