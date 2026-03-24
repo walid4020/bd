@@ -3,21 +3,48 @@
     <head>
         <meta charset="UTF-8">
         <title> Modification de la dépense </title>
+        <!-- balise permettant de relier notre HTML au framework bulma-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
     <body> 
+        <!-- CSS : création du "contenant" du formulaire cardre blanc-->
+        <section class="section">
+            <div class="container" style="max-width: 500px;">
+                <div class="box">
         <form action="modification_depense_reception_des_donnees.php" method="post"enctype="multipart/form-data"> 
-        <h1> Modifier la dépense </h1>
+        <!-- CSS : ajout de classe pour changer l'apparence du titre (voir pour changer de couleur)-->
+        <h1 class="has-text-centered title has-text-primary-bold"> Modifier la dépense </h1>
             <p> 
-                <label for="id_pour_input_nom_depense"> Nom de la dépense: </label>
-                    <input type="text"name="expense name" value="restaurant" id="id_pour_input_nom_depense"required>
+            <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+            <div class="field">
+                <label class="label mb-3" for="id_pour_input_nom_depense"> Nom de la dépense: </label>
+                <div class="control">
+                   <!-- CSS : Rendre le cadre moins épais-->
+                    <input class="input is-small" type="text"name="expense name" value="restaurant" id="id_pour_input_nom_depense"required>
+                </div>
+            </div>
             </p>
             <p> 
             <!-- PHP par la suite pour insérer les données pré-selectionnées dans le form de création d'une dépense-->
-                <label for="id_pour_input_montant"> Montant :</label>
-                    <input type="number" step="0.01" id="id_pour_input_montant" name="amount" value="45" >
+                <!--CSS : Ajouter un espacement entre chaque label(class="label mb-3")-->
+                <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+            <div class="field">
+                <label class="label mb-3" for="id_pour_input_montant"> Montant :</label>
+                <div class="control">
+                   <!-- CSS : Rendre le cadre moins épais-->
+                    <input class="input is-small" type="number" step="0.01" id="id_pour_input_montant" name="amount" value="45" >
+                </div>
+            </div>
             </p>
             <p> 
-                <label for="id_pour_input_devises_montant"> Devise : </label>
+                <!--CSS : Ajouter un espacement entre chaque label-->
+                <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+            <div class="field">
+                <label class="label mb-3" for="id_pour_input_devises_montant"> Devise : </label>
+                <div class="control">
+                <!-- CSS : ajout div class = (2) -->
+            <div class="control">
+                <div class="select is-fullwidth">
                 <select name="currencies"id="id_pour_input_devises_montant">
                     <option value="EUR">Euro</option>
                     <!-- simulation d'une donnée pré-selectionnée avec selected avant l'ajout du PHP-->
@@ -27,31 +54,56 @@
                         <option value="AUD"> Dollard australien </option>
                         <option value="Autre">Autre</option>
                 </select> 
+                </div>
+            </div>
+                </div>
+            </div>
             </p>
             <p> 
             <!-- Trouver un moyen pour que les noms proposés soient les noms des personnes participant au groupe -->
             <!-- à faire plus tard avec une boucle en PHP--> 
-                <label for="id_pour_input_paye_par"> Payé par : </label>
+                <!--CSS : Ajouter un espacement entre chaque label-->
+                <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+            <div class="field">
+                <label class="label mb-3" for="id_pour_input_paye_par"> Payé par : </label>
+                <div class="control">
+                <!-- CSS : ajout div class = (2) -->
+            <div class="control">
+                <div class="select is-fullwidth">
                     <select name="payed by"id="id_pour_input_paye_par">
                         <option value="1">Personne 1 </option>
                         <option value="2">Personne 2</option>
                         <!-- simulation d'une donnée pré-selectionnée avec selected avant l'ajout du PHP-->
                         <option value="3"selected>Personne 3</option>
                         <option value="4">Personne 4 </option>
+                    </select>
+                </div>
+            </div>
+                </div>
+            </div>
             </p>   
             <p>
-                <label for="id_pour_input_date"> Date :</label>
-                    <input type="datetime-local" id="id_pour_input_date" name="expense date" value="">
+                <!--CSS : Ajouter un espacement entre chaque label-->
+                <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+            <div class="field">
+                <label class="label mb-3" for="id_pour_input_date"> Date :</label>
+                <div class="control">
+                    <!-- CSS : Rendre le cadre moins épais-->
+                    <input class="input is-small" type="datetime-local" id="id_pour_input_date" name="expense date" value="">
+                </div>
+            </div>
             </p>
 
             <p> 
             <!-- Insertion d'un ticket de caisse -->
-                <label for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
+             <!--CSS : Ajouter un espacement entre chaque label-->
+                <label class="label mb-3" for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
                     <input type="file" id="id_pour_ticket" name="receipt" accept=".pdf,image/*">
             </p>
 
             </p>
-                <button type ="submit" name="bouton submit"> Enregistrer les modifications </button>
+            <!-- CSS : Ajout de has-text-white + espacer du reste des champs-->
+                <button type ="submit" name="bouton submit" class="button is-primary is-fullwidth has-text-white mt-4"> Enregistrer les modifications </button>
             </p> 
         </form>
     </body>
