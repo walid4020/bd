@@ -6,32 +6,37 @@
         <!-- balise permettant de relier notre HTML au framework bulma-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
-    <body> 
+    <body>  
         <!-- CSS : création du "contenant" du formulaire cardre blanc-->
         <section class="section">
             <div class="container" style="max-width: 500px;">
                 <div class="box">
-        <form action="creation_depense_reception_des_donnees.php" method="post" enctype="multipart/form-data"> 
+        <form action="creation_depense_reception_des_donnees.php" method="post" enctype="multipart/form-data">
         <!-- CSS : ajout de classe pour changer l'apparence du titre (voir pour changer de couleur)-->
         <h1 class="has-text-centered title has-text-primary-bold"> Créer une nouvelle dépense </h1>
         <p>  
          <div class="field">
             <label class="label mb-3" for="id_pour_input_nom_depense"> Nom de la dépense: </label>
-             <div class="control has-icons-left">
+             <div class="control">
                 <!-- CSS : Rendre le cadre moins épais-->
                 <input class="input is-small" type="text"name="expense name" placeholder="restaurant" id="id_pour_input_nom_depense"required>
             </div>
+         </div>
         </p>
         <p>
+        <div class="field">
         <label class="label mb-3" for="id_pour_input_montant"> Montant :</label>
-        <div class="control has-icons-left">
+            <div class="control">
             <!-- CSS : Rendre le cadre moins épais-->
             <input class="input is-small" type="number" step="0.01" id="id_pour_input_montant" name="amount" placeholder="45€" required>
-        </div>
+                </div>
+            </div>
         </p>
         <p>
+        <div class="field">
         <label class="label mb-3" for="id_pour_input_devises_montant"> Devise : </label>
-             <!-- CSS : ajout div class = (2) -->
+           <div class="control">  
+        <!-- CSS : ajout div class = (2) -->
             <div class="control">
                 <div class="select is-fullwidth">
                     <select name="currencies"id="id_pour_input_devises_montant">
@@ -44,10 +49,13 @@
                     </select> 
                 </div>
             </div>
+           </div>
+        </div>
         </p>
         <p>
             <!-- Trouver un moyen pour que les noms proposés soient les noms des personnes participant au groupe -->
             <!-- à faire plus tard avec une boucle en PHP--> 
+        <div class="field">
         <label class="label mb-3" for="id_pour_input_paye_par"> Payé par : </label>
              <div class="control">
                 <div class="select is-fullwidth">
@@ -59,24 +67,31 @@
                     </select>
                 </div>
              </div>
+        </div>
         </p>   
         <p>  
-         <label class="label mb-3" for="id_pour_input_date"> Date :</label>
-         <div class="control has-icons-left">
+        <div class="field">
+             <label class="label mb-3" for="id_pour_input_date"> Date :</label>
+            <div class="control">
+                <div class="control">
             <!-- CSS : Rendre le cadre moins épais-->
             <input class="input is-small" type="datetime-local" id="id_pour_input_date" name="expense date">
+                </div>
+            </div>
         </div>
         </p>
         <p>
         <!-- Insertion d'un ticket de caisse -->
          <label class="label mb-3" for="id_pour_ticket">Ticket de caisse (PDF ou Image) :</label>
             <input type="file" id="id_pour_ticket" name="receipt" accept=".pdf,image/*">
-       </div>
         </p>
         <p>
         <!-- CSS : Ajout de has-text-white-->
-            <button type="submit" name="bouton submit" class="button is-primary is-fullwidth has-text-white"> Envoyer </button>
+            <button type="submit" name="bouton submit" class="button is-primary is-fullwidth has-text-white mt-4"> Envoyer </button>
         </p>
         </form>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
