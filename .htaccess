@@ -1,0 +1,13 @@
+Header always set Content-Security-Policy: "default-src 'unsafe-inline' 'unsafe-eval';\
+    base-uri 'self';\
+    connect-src 'self';\
+    frame-src 'self';\
+    frame-ancestors 'self';\
+    font-src 'self';\
+    form-action 'self';\
+    img-src 'self' data: https://flagsapi.com;\
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com/vue@3/dist/vue.global.js;\
+    style-src 'self' 'unsafe-inline';\
+    worker-src 'self' blob:;"
+
+php_flag display_errors On
