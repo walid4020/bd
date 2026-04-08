@@ -1,4 +1,4 @@
-// code fait suite à la séance 6 
+// code fait suite à la séance 6 d'applications web
 
 const { createApp, ref } = Vue;
 
