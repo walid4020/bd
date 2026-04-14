@@ -1,1 +1,66 @@
-<html><head><title>Bienvenue sur divvyo.hepl-e-business.be</title><meta charset=utf-8></head><body><h1>Bienvenue sur divvyo.hepl-e-business.be</h1><p>Le sous-domaine a été configuré avec succès!</p></body></html>
+<!-- FICHIER A JOUR APRES SEANCE 6-->
+<!DOCTYPE html>
+<html lang="fr"> 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--name="viewport" : Indique au navigateur qu'on va régler l'affichage de la fenêtre. -->
+        <!--width=device-width : Force la largeur du site à être la même que celle de l'appareil (téléphone, tablette, etc.).-->
+        <!--initial-scale=1.0 : Règle le zoom à 100% au chargement. Cela empêche le texte d'être tout petit.-->
+       
+        <title> Connexion </title>
+        <!-- CSS : OK -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+    </head>
+
+    <body> 
+        <div id="app">
+            <template v-if="!currentUser">
+            <form @submit.prevent="login">
+
+                <div v-if="error" class="notification is-danger is-light">
+                    <button class="delete" @click="error = ''"></button>
+                    {{ error }}
+                </div>
+
+                <section class="section">
+                    <div class="container" style="max-width: 500px;">
+                        <div class="box">
+                            
+                                <h1 class="has-text-centered title has-text-primary-bold"> Connexion à Divvyo </h1>
+
+                                <label for="id_pour_input_email"> Email: </label>
+                                    <div class="control">
+                                        <input id="id_pour_input_email"required class="input" type="email" v-model="login_form.email" placeholder="exemple.email@gmail.com" >
+                                    </div>
+                                    <br>
+                        
+                                <label for="id_pour_input_mdp"> Mot de passe :</label>
+                                    <div class="control">
+                                        <input id="id_pour_input_mdp" class="input" type="password"  v-model="login_form.password" placeholder="••••••••" minlength="8"required>
+                                    </div>
+                                    <br> 
+                                <div>
+                                    <label>
+                                        <input type="checkbox" v-model="login_form.remember">
+                                        Se souvenir de moi (cookie persistant 30 jours)
+                                    </label>
+                                </div>
+
+                                <button type ="submit" name="bouton submit"class="button is-primary is-fullwidth has-text-white"> Se connecter </button>
+                        </div>
+                    </div>
+                </section>
+            </form>
+            </template>
+            <template v-else>
+            Bonjour, {{ currentUser.displayName }}<br>
+            <a @click="logout" href="#" class="button is-primary is-fullwidth has-text-white">Se déconnecter</a><br>
+            <a @click="refresh" href="#">Refresh</a>
+        </template>
+        </div>
+        
+        <script src="app.js"></script>
+    </body>
+</html>
