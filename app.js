@@ -32,7 +32,7 @@ createApp({
             }
 
             // Appel au fichier PHP que nous avons créé
-            fetch('api/backend_login.php?action=login', { 
+            fetch('api/backend.php?action=login', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -60,7 +60,7 @@ createApp({
 
         // FONCTION DE DÉCONNEXION 
         logout() {
-            fetch('api/backend_login.php?action=logout', { 
+            fetch('api/backend.php?action=logout', { 
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
             })
@@ -75,7 +75,7 @@ createApp({
 
         // VÉRIFICATION DE LA SESSION (Automatique) 
         refresh() {
-            fetch('api/backend_login.php?action=whoami', { 
+            fetch('api/backend.php?action=whoami', { 
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             })
