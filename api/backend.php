@@ -80,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             http_response_code(401);
             exit;
         }
-
         // Création de la session avec les vraies données de ta DB
             $_SESSION['user'] = [
             'id'          => $user_from_db['id'],
