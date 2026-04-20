@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         // RECHERCHE EN BASE DE DONNÉES -> autre code que dans le cours (vérifier (3 lignes en dessous))
-        $stmt = $pdo->prepare("SELECT * FROM utilisateurs WHERE email = :email");
+        $stmt = $connexion->prepare("SELECT * FROM utilisateurs WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user_from_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
