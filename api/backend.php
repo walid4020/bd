@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user_from_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Vérification si l'utilisateur existe et si le mot de passe correspond
+        password_verify()
         if (!$user_from_db || $user_from_db['password'] !== $password) {
             sleep(1); /// Délai volontaire pour limiter le brute-force (incrémental ce serait mieux)
             echo json_encode(['error' => 'Identifiants incorrects']);
@@ -81,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Création de la session avec les vraies données de ta DB
-        $user = $USERS[$username];
             $_SESSION['user'] = [
             'id'          => $user_from_db['id'],
             'email'       => $user_from_db['email'],
@@ -94,7 +94,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $expires = time() + (30 * 24 * 60 * 60); // 30 jours
             setcookie(
                 'remember_user', 
-                $email, 
                 [
                 'expires' => $expires,
                 'path' => '/'
