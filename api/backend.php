@@ -73,8 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user_from_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Vérification si l'utilisateur existe et si le mot de passe correspond
-        password_verify()
-        if (!$user_from_db || $user_from_db['password'] !== $password) {
+        if (!$user_from_db || !password_verify ($password, $user_from_db ['password']))
             sleep(1); /// Délai volontaire pour limiter le brute-force (incrémental ce serait mieux)
             echo json_encode(['error' => 'Identifiants incorrects']);
             http_response_code(401);
@@ -91,9 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Gestion du cookie persistant
         if ($remember) {
             $expires = time() + (30 * 24 * 60 * 60); // 30 jours
-            setcookie(
-                'remember_user', 
-                [
+            setcookie('remember_user',$user_from_db['prénom'], [
                 'expires' => $expires,
                 'path' => '/'
             ]);
