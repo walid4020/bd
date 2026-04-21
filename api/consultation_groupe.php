@@ -56,17 +56,18 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
 
 // 7. RÉCUPÉRATION DES DÉPENSES DU GROUPE
 // On joint la table expenses avec users pour afficher le prénom de la personne qui a payé
+// Colonnes utilisées : description, amount, payer_id, expense_date
 $stmt_depenses = $connexion->prepare("
     SELECT
         e.id,
-        e.name          AS expense_name,
+        e.description,
         e.amount,
         e.currency,
         e.expense_date,
         u.first_name    AS payer_first_name,
         u.last_name     AS payer_last_name
     FROM expenses e
-    LEFT JOIN users u ON u.id = e.paid_by_user_id
+    LEFT JOIN users u ON u.id = e.payer_id
     WHERE e.account_group_id = :group_id
     ORDER BY e.expense_date DESC
 ");
