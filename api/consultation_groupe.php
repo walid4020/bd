@@ -146,8 +146,8 @@ $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
                     <div class="buttons is-flex is-flex-direction-column mt-5">
 
                         <!-- Lien vers la création d'une dépense dans ce groupe -->
-                        <a href="../pages/formulaire_creation_depense.html" class="button is-info is-fullwidth">
-                            💸 Ajouter une dépense
+                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-info is-fullwidth">
+                             💸 Ajouter une dépense
                         </a>
 
                         <!-- Lien retour vers la liste des groupes -->
