@@ -39,7 +39,7 @@ $user_id  = $_SESSION['user']['id'];
 // 5. VÉRIFICATION QUE L'UTILISATEUR APPARTIENT BIEN À CE GROUPE
 // Sécurité : un utilisateur ne peut pas consulter un groupe dont il n'est pas membre
 $stmt_check = $connexion->prepare("
-    SELECT id FROM group_users
+    SELECT account_group_id FROM group_users
     WHERE account_group_id = :group_id AND user_id = :user_id
 ");
 $stmt_check->execute(['group_id' => $group_id, 'user_id' => $user_id]);
