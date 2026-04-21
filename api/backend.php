@@ -1,5 +1,3 @@
-// réalisé suite à la séance 6 d'application web 
-
 <?php
 session_start();
 
