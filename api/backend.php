@@ -68,12 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
         // RECHERCHE EN BASE DE DONNÉES -> autre code que dans le cours (vérifier (3 lignes en dessous))
-        $stmt = $connexion->prepare("SELECT * FROM utilisateurs WHERE email = :email");
+        $stmt = $connexion->prepare("SELECT * FROM users WHERE email_address = :email");
         $stmt->execute(['email' => $email]);
         $user_from_db = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Vérification si l'utilisateur existe et si le mot de passe correspond
-        if (!$user_from_db || !password_verify($password, $user_from_db['password'])) {
+        if (!$user_from_db || !password_verify($password, $user_from_db['password_hash'])) {
             sleep(1); /// Délai volontaire pour limiter le brute-force (incrémental ce serait mieux)
             echo json_encode(['error' => 'Identifiants incorrects']);
             http_response_code(401);
@@ -82,15 +82,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Création de la session avec les vraies données de ta DB
             $_SESSION['user'] = [
             'id'          => $user_from_db['id'],
-            'email'       => $user_from_db['email'],
-            'displayName' => $user_from_db['prenom'] . ' ' . $user_from_db['nom'],
+            'email'       => $user_from_db['email_address'],
+            'displayName' => $user_from_db['first_name'] . ' ' . $user_from_db['last_name'],
             'loginAt'     => date('d-m-Y H:i:s')
              ];
 
         // Gestion du cookie persistant
         if ($remember) {
             $expires = time() + (30 * 24 * 60 * 60); // 30 jours
-            setcookie('remember_user', $user_from_db['prenom'], [
+            setcookie('remember_user', $user_from_db['first_name'], [
                 'expires' => $expires,
                 'path' => '/'
             ]);
