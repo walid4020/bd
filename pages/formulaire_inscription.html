@@ -38,7 +38,26 @@
         <label class="label mb-3" for="id_pour_input_datedenaissance"> Date de naissance : </label>
             <div class="control">
             <!-- CSS : Rendre le cadre moins épais-->
-            <input class="input is-small" type="date"name="birthdate" id="id_pour_input_datedenaissance"> 
+            <input class="input is-small" type="date" name="birthdate" id="id_pour_input_datedenaissance" required>
+            </div>
+           </div>
+
+           <!-- Champ téléphone : ajouté car la colonne phone_number est obligatoire (NOT NULL) dans la table users en BD -->
+           <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+           <div class="field">
+        <label class="label mb-3" for="id_pour_input_telephone"> Numéro de téléphone : </label>
+            <div class="control">
+            <!-- type="tel" : indique au navigateur que c'est un numéro de téléphone (clavier adapté sur mobile) -->
+            <input class="input is-small" type="tel" name="phone_number" id="id_pour_input_telephone" placeholder="+32 470 00 00 00" required>
+            </div>
+           </div>
+
+           <!-- Champ pays : ajouté car la colonne country est obligatoire (NOT NULL) dans la table users en BD -->
+           <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
+           <div class="field">
+        <label class="label mb-3" for="id_pour_input_pays"> Pays : </label>
+            <div class="control">
+            <input class="input is-small" type="text" name="country" id="id_pour_input_pays" placeholder="Belgique" required>
             </div>
            </div>
         
