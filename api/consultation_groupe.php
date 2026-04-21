@@ -62,7 +62,6 @@ $stmt_depenses = $connexion->prepare("
         e.id,
         e.description,
         e.amount,
-        e.currency,
         e.expense_date,
         u.first_name    AS payer_first_name,
         u.last_name     AS payer_last_name
@@ -117,13 +116,13 @@ $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
                                 <?php foreach ($depenses as $depense): ?>
                                     <tr>
                                         <!-- Nom de la dépense -->
-                                        <td><?= htmlspecialchars($depense['expense_name']) ?></td>
+                                        <td><?= htmlspecialchars($depense['description']) ?></td>
 
                                         <!-- Montant formaté avec 2 décimales -->
                                         <td><?= number_format($depense['amount'], 2) ?></td>
 
                                         <!-- Devise de la dépense -->
-                                        <td><?= htmlspecialchars($depense['currency']) ?></td>
+                                        <td><?= htmlspecialchars($groupe['currency']) ?></td>
 
                                         <!-- Prénom + Nom de la personne qui a payé -->
                                         <td>
