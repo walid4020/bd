@@ -1,6 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 // Page "Dépenses du groupe" - affiche toutes les dépenses d'un groupe sélectionné
-
 // 1. DÉMARRAGE DE LA SESSION
 // Nécessaire pour vérifier que l'utilisateur est bien connecté
 session_start();
