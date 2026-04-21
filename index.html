@@ -57,11 +57,46 @@
                 </section>
             </form>
             </template>
+            <!-- Page d'accueil affichée une fois l'utilisateur connecté -->
             <template v-else>
-            Bonjour, {{ currentUser.displayName }}<br>
-            <a @click="logout" href="#" class="button is-primary is-fullwidth has-text-white">Se déconnecter</a><br>
-            <a @click="refresh" href="#">Refresh</a>
-        </template>
+                <section class="section">
+                    <div class="container" style="max-width: 600px;">
+                        <div class="box">
+
+                            <!-- Message de bienvenue avec le prénom et nom de l'utilisateur -->
+                            <h1 class="title has-text-primary has-text-centered">
+                                Bonjour, {{ currentUser.displayName }} 👋
+                            </h1>
+                            <p class="has-text-centered mb-5">Que voulez-vous faire ?</p>
+
+                            <!-- Navigation vers les différentes fonctionnalités de l'app -->
+                            <div class="buttons is-flex is-flex-direction-column">
+
+                                <!-- Accès à la liste des groupes de l'utilisateur -->
+                                <a href="pages/formulaire_choix_de_groupe.html" class="button is-primary is-fullwidth">
+                                    📋 Mes groupes
+                                </a>
+
+                                <!-- Créer un nouveau groupe de dépenses -->
+                                <a href="pages/formulaire_creation_groupe.html" class="button is-info is-fullwidth">
+                                    ➕ Créer un groupe
+                                </a>
+
+                                <!-- Créer une nouvelle dépense dans un groupe -->
+                                <a href="pages/formulaire_creation_depense.html" class="button is-link is-fullwidth">
+                                    💸 Créer une dépense
+                                </a>
+
+                                <!-- Bouton de déconnexion : détruit la session et reaffiche le formulaire de login -->
+                                <a @click="logout" href="#" class="button is-danger is-light is-fullwidth">
+                                    🚪 Se déconnecter
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </template>
         </div>
         
         <script src="app.js"></script>
