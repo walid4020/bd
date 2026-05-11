@@ -73,6 +73,62 @@ $stmt_depenses = $connexion->prepare("
 ");
 $stmt_depenses->execute(['group_id' => $group_id]);
 $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
+// 8. CALCUL DES SOLDES PAR MEMBRE
+// On additionne tout ce que chaque membre a payé dans ce groupe
+$stmt_soldes = $connexion->prepare("
+    SELECT
+        u.id,
+        u.first_name,
+        u.last_name,
+        COALESCE(SUM(e.amount), 0) AS total_paye
+    FROM users u
+    INNER JOIN group_users gu ON gu.user_id = u.id
+    LEFT JOIN expenses e ON e.payer_id = u.id AND e.account_group_id = :group_id
+    WHERE gu.account_group_id = :group_id
+    GROUP BY u.id, u.first_name, u.last_name
+");
+$stmt_soldes->execute(['group_id' => $group_id]);
+$membres_soldes = $stmt_soldes->fetchAll(PDO::FETCH_ASSOC);
+
+// Calcul de la part équitable : total de toutes les dépenses ÷ nombre de membres
+$total_depenses = array_sum(array_column($membres_soldes, 'total_paye'));
+$nb_membres = count($membres_soldes);
+$part_par_personne = $nb_membres > 0 ? $total_depenses / $nb_membres : 0;
+
+// Calcul du solde de chaque personne : ce qu'il a payé - ce qu'il aurait dû payer
+// Positif = on lui doit de l'argent / Négatif = il doit de l'argent
+foreach ($membres_soldes as &$m) {
+    $m['solde'] = $m['total_paye'] - $part_par_personne;
+}
+unset($m);
+
+// Algorithme de simplification des dettes
+// On sépare ceux qui ont trop payé (créanciers) de ceux qui n'ont pas assez payé (débiteurs)
+$crediteurs = [];
+$debiteurs  = [];
+foreach ($membres_soldes as $m) {
+    if ($m['solde'] > 0.01) {
+        $crediteurs[] = ['nom' => $m['first_name'] . ' ' . $m['last_name'], 'solde' => $m['solde']];
+    } elseif ($m['solde'] < -0.01) {
+        $debiteurs[] = ['nom' => $m['first_name'] . ' ' . $m['last_name'], 'solde' => $m['solde']];
+    }
+}
+
+// On calcule les remboursements à faire (qui doit combien à qui)
+$remboursements = [];
+$i = 0; $j = 0;
+while ($i < count($debiteurs) && $j < count($crediteurs)) {
+    $montant = min(abs($debiteurs[$i]['solde']), $crediteurs[$j]['solde']);
+    $remboursements[] = [
+        'de'     => $debiteurs[$i]['nom'],
+        'a'      => $crediteurs[$j]['nom'],
+        'montant'=> $montant,
+    ];
+    $debiteurs[$i]['solde'] += $montant;
+    $crediteurs[$j]['solde'] -= $montant;
+    if (abs($debiteurs[$i]['solde']) < 0.01) $i++;
+    if ($crediteurs[$j]['solde'] < 0.01) $j++;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -89,7 +145,7 @@ $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
 
                     <!-- Titre de la page avec le nom du groupe -->
                     <h1 class="title has-text-primary has-text-centered">
-                        📋 <?= htmlspecialchars($groupe['name']) ?>
+                         <?= htmlspecialchars($groupe['name']) ?>
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
                         Devise du groupe : <?= htmlspecialchars($groupe['currency']) ?>
@@ -140,6 +196,53 @@ $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                    <?php endif; ?>
+                    <!-- SECTION SOLDES : résumé de qui a payé quoi -->
+                    <hr>
+                    <h2 class="subtitle has-text-primary has-text-centered mt-4">
+                        Résumé des soldes
+                    </h2>
+                    <table class="table is-fullwidth is-striped">
+                        <thead>
+                            <tr>
+                                <th>Membre</th>
+                                <th>Total payé</th>
+                                <th>Part due</th>
+                                <th>Solde</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($membres_soldes as $m): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($m['first_name'] . ' ' . $m['last_name']) ?></td>
+                                    <td><?= number_format($m['total_paye'], 2) ?> <?= htmlspecialchars($groupe['currency']) ?></td>
+                                    <td><?= number_format($part_par_personne, 2) ?> <?= htmlspecialchars($groupe['currency']) ?></td>
+                                    <!-- Solde en vert si positif (on lui doit), en rouge si négatif (il doit) -->
+                                    <td class="<?= $m['solde'] >= 0 ? 'has-text-success' : 'has-text-danger' ?>">
+                                        <?= ($m['solde'] >= 0 ? '+' : '') . number_format($m['solde'], 2) ?>
+                                        <?= htmlspecialchars($groupe['currency']) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+
+                    <!-- SECTION REMBOURSEMENTS : qui doit combien à qui -->
+                    <h2 class="subtitle has-text-primary has-text-centered mt-4">
+                        Remboursements à faire
+                    </h2>
+                    <?php if (empty($remboursements)): ?>
+                        <p class="has-text-centered has-text-grey">Tout le monde est quitte ! ✅</p>
+                    <?php else: ?>
+                        <?php foreach ($remboursements as $r): ?>
+                            <div class="notification is-warning is-light">
+                                <strong><?= htmlspecialchars($r['de']) ?></strong>
+                                doit
+                                <strong><?= number_format($r['montant'], 2) ?> <?= htmlspecialchars($groupe['currency']) ?></strong>
+                                à
+                                <strong><?= htmlspecialchars($r['a']) ?></strong>
+                            </div>
+                        <?php endforeach; ?>
                     <?php endif; ?>
 
                     <!-- Boutons de navigation -->
