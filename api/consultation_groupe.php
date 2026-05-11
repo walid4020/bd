@@ -197,35 +197,6 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                             </tbody>
                         </table>
                     <?php endif; ?>
-                    <!-- SECTION SOLDES : résumé de qui a payé quoi -->
-                    <hr>
-                    <h2 class="subtitle has-text-primary has-text-centered mt-4">
-                        Résumé des soldes
-                    </h2>
-                    <table class="table is-fullwidth is-striped">
-                        <thead>
-                            <tr>
-                                <th>Membre</th>
-                                <th>Total payé</th>
-                                <th>Part due</th>
-                                <th>Solde</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($membres_soldes as $m): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($m['first_name'] . ' ' . $m['last_name']) ?></td>
-                                    <td><?= number_format($m['total_paye'], 2) ?> <?= htmlspecialchars($groupe['currency']) ?></td>
-                                    <td><?= number_format($part_par_personne, 2) ?> <?= htmlspecialchars($groupe['currency']) ?></td>
-                                    <!-- Solde en vert si positif (on lui doit), en rouge si négatif (il doit) -->
-                                    <td class="<?= $m['solde'] >= 0 ? 'has-text-success' : 'has-text-danger' ?>">
-                                        <?= ($m['solde'] >= 0 ? '+' : '') . number_format($m['solde'], 2) ?>
-                                        <?= htmlspecialchars($groupe['currency']) ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
 
                     <!-- SECTION REMBOURSEMENTS : qui doit combien à qui -->
                     <h2 class="subtitle has-text-primary has-text-centered mt-4">
