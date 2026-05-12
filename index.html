@@ -36,8 +36,12 @@
                                     <br>
                         
                                 <label for="id_pour_input_mdp"> Mot de passe :</label>
-                                    <div class="control">
-                                        <input id="id_pour_input_mdp" class="input" type="password"  v-model="login_form.password" placeholder="••••••••" minlength="8"required>
+                                    <div class="control has-icons-right">
+                                        <input id="id_pour_input_mdp" class="input" type="password" v-model="login_form.password" placeholder="••••••••" minlength="8" required>
+                                        <!-- Icône œil cliquable pour afficher/masquer le mot de passe -->
+                                        <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp', this)">
+                                            👁️
+                                        </span>
                                     </div>
                                     <br> 
                                 <div>
@@ -98,7 +102,19 @@
                 </section>
             </template>
         </div>
-        
+        <script>
+            // Fonction qui bascule entre afficher et masquer le mot de passe
+            function togglePassword(inputId, icon) {
+                const input = document.getElementById(inputId);
+                if (input.type === 'password') {
+                    input.type = 'text';   // on affiche le mot de passe
+                    icon.textContent = '🙈'; // on change l'icône
+                } else {
+                    input.type = 'password'; // on masque le mot de passe
+                    icon.textContent = '👁️'; // on remet l'icône
+                }
+            }
+        </script>
         <script src="app.js"></script>
     </body>
 </html>

@@ -73,18 +73,23 @@
             <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
              <div class="field">
          <label class="label mb-3" for="id_pour_input_mdp"> Mot de passe :</label>
-            <div class="control">
-           <!-- CSS : Rendre le cadre moins épais-->
-            <input class="input is-small" type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8"required>
+            <div class="control has-icons-right">
+                <input class="input is-small" type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
+                <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp', this)">
+                    👁️
+                </span>
             </div>
              </div>
 
 
         <!-- AJOUTER qlq chose pour obliger à ce que le mdp soit le même dans la zone 7 et dans la zone 8-->
         <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-         <div class="field">
-        <label class="label mb-3" for="id_pour_input_mdp_confirmation">Confirmez le mot de passe :</label>
-            <div class="control">
+        <div class="control has-icons-right">
+            <input class="input is-small" type="password" id="id_pour_input_mdp_confirmation" name="password_confirm" placeholder="Confirmez votre mot de passe" required>
+            <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp_confirmation', this)">
+                👁️
+            </span>
+        </div>
             <!-- CSS : Rendre le cadre moins épais-->
             <input class="input is-small" type="password" id="id_pour_input_mdp_confirmation" name="password_confirm" placeholder="Confirmez votre mot de passe" required>
             </div>
@@ -101,5 +106,17 @@
                 </div>
             </div>
         </section>
+        <script>
+            function togglePassword(inputId, icon) {
+                const input = document.getElementById(inputId);
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = '🙈';
+                } else {
+                    input.type = 'password';
+                    icon.textContent = '👁️';
+                }
+            }
+        </script>
     </body>
 </html>
