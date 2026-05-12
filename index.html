@@ -63,6 +63,34 @@
             </template>
             <!-- Page d'accueil affichée une fois l'utilisateur connecté -->
             <template v-else>
+                <nav class="navbar is-success" role="navigation" aria-label="navigation principale">
+                    <!-- Partie gauche : logo cliquable qui ramène à l'accueil -->
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="index.html">
+                            <img src="assets/logo.png" alt="Divvyo" style="max-height: 40px;">
+                        </a>
+
+                        <!-- Bouton hamburger sur mobile : Vue gère l'ouverture via menuOuvert -->
+                        <a role="button" class="navbar-burger" :class="{'is-active': menuOuvert}"
+                        aria-label="menu" @click="menuOuvert = !menuOuvert">
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true"></span>
+                        </a>
+                    </div>
+
+                    <!-- Menu principal : is-active ajouté par Vue quand menuOuvert est vrai -->
+                    <div class="navbar-menu" :class="{'is-active': menuOuvert}">
+                        <div class="navbar-end">
+                            <a href="index.html" class="navbar-item">Accueil</a>
+                            <a href="api/formulaire_choix_de_groupe.php" class="navbar-item">Mes groupes</a>
+                            <a href="pages/formulaire_creation_groupe.html" class="navbar-item">Créer un groupe</a>
+                            <a href="pages/formulaire_creation_depense.html" class="navbar-item">Créer une dépense</a>
+                            <!-- Déconnexion gérée par Vue : détruit la session côté client et redirige -->
+                            <a @click="logout" href="#" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
+                        </div>
+                    </div>
+                </nav>
                 <section class="section">
                     <div class="container" style="max-width: 600px;">
                         <div class="box">
