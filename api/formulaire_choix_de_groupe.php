@@ -77,7 +77,7 @@ $groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <a href="../index.html" class="navbar-item">Accueil</a>
                     <a href="../api/formulaire_choix_de_groupe.php" class="navbar-item">Mes groupes</a>
                     <a href="../pages/formulaire_creation_groupe.html">Créer un groupe</a>
-                    <a href="formulaire_creation_depense.html" class="navbar-item">Créer une dépense</a>
+                    <a href="../pages/formulaire_creation_groupe.html" class="navbar-item">Créer un groupe</a>
                     <!-- Déconnexion : détruit la session PHP et redirige vers la page de connexion -->
                     <a href="../api/deconnexion.php" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
                 </div>
