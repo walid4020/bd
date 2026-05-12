@@ -67,7 +67,7 @@ $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title> Créer une dépense </title>
+        <title> Créer une nouvelle dépense </title>
         <!-- CSS : framework Bulma -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
