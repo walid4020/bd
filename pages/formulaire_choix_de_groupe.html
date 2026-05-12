@@ -66,18 +66,37 @@
         <div class="field">
             <label class="has-text-centered label" for="id_selection_de_groupe"> Quel groupe souhaitez-vous consulter ? </label>
         </div>
-            <!-- CSS : ajout div class = (2) -->
             <div class="control">
-                <div class="select is-fullwidth">
-                    <select name="group_id" id="id_selection_de_groupe" style="text-align-last: center;" required>
-                        <option value="">-- Veuillez choisir un groupe --</option>
-                        <option value="101">Vacances au Ski 2026</option>
-                        <option value="102">Colocation 2026 </option>
-                        <option value="103">Projet BAC2 - Informatique</option>
-                        <option value="104">Anniversaire de Théo </option>
-                    </select>
-                </div>
+
+        <!-- Utilisation de bouton pour choisir le groupe que l'on veut afficher-->
+        <!-- affichage vertical des boutons -->
+        <div class="buttons is-flex is-flex-direction-column">
+
+            <!-- bouton sélectionné -->
+            <button type="button"
+                    class="button is-success is-light has-text-success-dark has-text-weight-bold is-fullwidth">
+                Vacances au Ski 2026
+            </button>
+
+            <!-- boutons non sélectionnés -->
+            <button type="button"
+                    class="button is-light is-fullwidth">
+                Colocation 2026
+            </button>
+
+            <button type="button"
+                    class="button is-light is-fullwidth">
+                Projet BAC2 - Informatique
+            </button>
+
+            <button type="button"
+                    class="button is-light is-fullwidth">
+                Anniversaire de Théo
+            </button>
+
             </div>
+
+        </div>
 
         <p>
             <!-- CSS : Ajout de has-text-white-->
