@@ -171,7 +171,6 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                     <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-dark">Mes groupes</a>
                     <a href="../pages/formulaire_creation_groupe.html" class="navbar-item has-text-dark">Créer un groupe</a>
                     <a href="../pages/formulaire_creation_depense.html" class="navbar-item has-text-dark">Créer une dépense</a>
-                    <a href="deconnexion.php" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
                     <!-- Déconnexion : détruit la session PHP et redirige vers la page de connexion -->
                     <a href="../api/deconnexion.php" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
                 </div>
