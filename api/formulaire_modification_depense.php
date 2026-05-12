@@ -65,7 +65,7 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
         <title> Modifier une dépense </title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
-    <body>
+    <body style="background-color: var(--bulma-success-dark);">
         <!-- Barre de navigation principale : is-success applique le fond vert Bulma, role et aria-label améliorent l'accessibilité -->
         <nav class="navbar is-success" style="background-color: var(--bulma-success-dark); align-items: center;" role="navigation" aria-label="navigation principale">
 

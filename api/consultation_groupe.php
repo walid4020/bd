@@ -140,7 +140,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
         <!-- CSS : framework Bulma -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
-    <body>
+    <body style="background-color: var(--bulma-success-dark);">
         <!-- Barre de navigation principale, fond vert foncé sur toute la largeur de l'écran -->
         <nav class="navbar is-success" style="background-color: var(--bulma-success-dark); align-items: center;" role="navigation" aria-label="navigation principale">
 
