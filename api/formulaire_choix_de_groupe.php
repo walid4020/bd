@@ -70,7 +70,7 @@ $groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <!-- Menu principal : masqué sur mobile par défaut, affiché quand la classe is-active est ajoutée via JS -->
-            <div class="navbar-menu" id="navMenu">
+            <div class="has-background-success-dark" id="navMenu">
 
                 <!-- navbar-end pousse les liens vers la droite de la barre -->
                 <div class="navbar-end">
