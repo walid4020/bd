@@ -76,6 +76,7 @@
             <div class="control has-icons-right">
                 <input class="input is-small" type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
                 <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp', this)">
+                    🙈
                 </span>
             </div>
              </div>
@@ -106,15 +107,15 @@
         </section>
         <script>
             function togglePassword(inputId, icon) {
-                const input = document.getElementById(inputId);
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.textContent = '🙉';
-                } else {
-                    input.type = 'password';
-                    icon.textContent = '🙈';
-                }
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = '🙉';  // mot de passe visible
+            } else {
+                input.type = 'password';
+                icon.textContent = '🙈';  // mot de passe caché
             }
+        }
         </script>
     </body>
 </html>
