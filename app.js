@@ -9,6 +9,19 @@ createApp({
             currentUser: null,
             // Stocke les messages d'erreur à afficher dans le formulaire
             error: '',
+            // Contrôle l'ouverture/fermeture du menu hamburger sur mobile
+                menuOuvert: false,
+                Ce qui donne :
+
+                data() {
+                    return {
+                        currentUser: null,
+                        error: '',
+                        // Contrôle l'ouverture/fermeture du menu hamburger sur mobile
+                        menuOuvert: false,
+                        login_form: ref({ email: '', password: '', remember: false })
+                    }
+                },
             // Les données du formulaire de connexion
             // On utilise "email" pour correspondre au v-model HTML
             login_form: ref ({ email: '', password: '', remember: false })
