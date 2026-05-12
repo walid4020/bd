@@ -262,7 +262,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                     <?php endif; ?>
 
                     <!-- SECTION REMBOURSEMENTS : qui doit combien à qui -->
-                    <h2 class="subtitle has-text-primary has-text-centered mt-4">
+                    <h2 class="subtitle has-text-success has-text-centered mt-4">
                         Remboursements à faire
                     </h2>
                     <?php if (empty($remboursements)): ?>
@@ -283,7 +283,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                     <div class="buttons is-flex is-flex-direction-column mt-5">
 
                         <!-- Lien vers la création d'une dépense dans ce groupe -->
-                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-info is-fullwidth">
+                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-sucess-bold is-fullwidth">
                              💸 Ajouter une dépense
                         </a>
 
