@@ -189,7 +189,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                 <div class="box">
 
                     <!-- Titre de la page avec le nom du groupe -->
-                    <h1 class="title has-text-primary has-text-centered">
+                    <h1 class="title has-text-sucess-bold has-text-centered">
                          <?= htmlspecialchars($groupe['name']) ?>
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
