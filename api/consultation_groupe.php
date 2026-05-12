@@ -189,7 +189,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                 <div class="box">
 
                     <!-- Titre de la page avec le nom du groupe -->
-                    <h1 class="title has-text-sucess has-text-centered">
+                    <h1 class="title has-text-success has-text-centered">
                          <?= htmlspecialchars($groupe['name']) ?>
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
@@ -269,7 +269,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                         <p class="has-text-centered has-text-grey">Tout le monde est quitte ! ✅</p>
                     <?php else: ?>
                         <?php foreach ($remboursements as $r): ?>
-                            <div class="notification is-sucess is-light">
+                            <div class="notification is-success is-light">
                                 <strong><?= htmlspecialchars($r['de']) ?></strong>
                                 doit
                                 <strong><?= number_format($r['montant'], 2) ?> <?= htmlspecialchars($groupe['currency']) ?></strong>
@@ -283,7 +283,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                     <div class="buttons is-flex is-flex-direction-column mt-5">
 
                         <!-- Lien vers la création d'une dépense dans ce groupe -->
-                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-sucess is-bold is-fullwidth">
+                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-success is-bold is-fullwidth">
                              💸 Ajouter une dépense
                         </a>
 
