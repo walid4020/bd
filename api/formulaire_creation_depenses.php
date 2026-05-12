@@ -120,7 +120,7 @@ $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
 
                     <!-- Titre avec le nom du groupe concerné -->
                     <h1 class="has-text-centered title has-text-primary">
-                        💸 Nouvelle dépense
+                        Nouvelle dépense
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
                         Groupe : <?= htmlspecialchars($groupe['name']) ?> (<?= htmlspecialchars($groupe['currency']) ?>)
