@@ -142,14 +142,14 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
     </head>
     <body>
         <!-- Barre de navigation principale : is-success applique le fond vert Bulma, role et aria-label améliorent l'accessibilité -->
-        <nav class="navbar is-success-dark" role="navigation" aria-label="navigation principale">
+        <nav class="navbar is-success" style="background-color: var(--bulma-success-dark);" role="navigation" aria-label="navigation principale">
 
             <!-- Partie gauche de la navbar : contient le logo et le bouton -->
-            <div class="navbar-brand">
+            <div class="navbar-menu" id="navMenu">
 
                 <!-- Logo cliquable qui ramène à l'accueil -->
                 <a class="navbar-item" href="../index.html">
-                    <img src="../assets/logo.png" alt="Divvyo" style="max-height: 40px;">
+                    <img src="../assets/logo.png" alt="Divvyo" style="max-height: 56px;">
                 </a>
 
                 <!-- Bouton : visible uniquement sur mobile, remplace les liens du menu.
