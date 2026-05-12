@@ -18,49 +18,65 @@
     <body> 
         <div id="app">
             <template v-if="!currentUser">
-            <form @submit.prevent="login">
+                <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #f5f5f5; padding: 1.5rem;">
+                    <div style="display: flex; width: 100%; max-width: 900px; min-height: 560px; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.12);">
 
-                <div v-if="error" class="notification is-danger is-light">
-                    <button class="delete" @click="error = ''"></button>
-                    {{ error }}
-                </div>
+                        <!-- Panneau gauche : image de présentation, masquée sur mobile -->
+                        <div class="is-hidden-mobile" style="flex: 0 0 45%; background-image: url('assets/slogan.png'); background-size: cover; background-position: center;">
+                        </div>
 
-                <section class="section">
-                    <div class="container" style="max-width: 500px;">
-                        <div class="box">
-                                <h1 class="has-text-centered title has-text-success-bold"> Connexion à Divvyo </h1>
+                        <!-- Panneau droit : formulaire de connexion -->
+                        <div style="flex: 1; background: white; padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center;">
 
-                                <label for="id_pour_input_email"> Email: </label>
+                            <!-- Logo centré en haut du formulaire -->
+                            <div class="has-text-centered mb-5">
+                                <img src="assets/logo.png" alt="Divvyo" style="max-height: 60px;">
+                            </div>
+
+                            <h1 class="title has-text-centered" style="color: var(--bulma-success-dark);"> Connexion </h1>
+
+                            <!-- Message d'erreur affiché si identifiants incorrects -->
+                            <div v-if="error" class="notification is-danger is-light">
+                                <button class="delete" @click="error = ''"></button>
+                                {{ error }}
+                            </div>
+
+                            <form @submit.prevent="login">
+                                <div class="field">
+                                    <label class="label" for="id_pour_input_email">Email</label>
                                     <div class="control">
-                                        <input id="id_pour_input_email"required class="input" type="email" v-model="login_form.email" placeholder="exemple.email@gmail.com" >
+                                        <input id="id_pour_input_email" required class="input" type="email" v-model="login_form.email" placeholder="exemple.email@gmail.com">
                                     </div>
-                                    <br>
-                        
-                                <label for="id_pour_input_mdp"> Mot de passe :</label>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label" for="id_pour_input_mdp">Mot de passe</label>
                                     <div class="control has-icons-right">
                                         <input id="id_pour_input_mdp" class="input" type="password" v-model="login_form.password" placeholder="••••••••" minlength="8" required>
                                         <!-- Icône œil cliquable pour afficher/masquer le mot de passe -->
                                         <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp', this)">
-                                            🙈
+                                            👁️
                                         </span>
                                     </div>
-                                    <br> 
-                                <div>
+                                </div>
+
+                                <div class="field">
                                     <label>
                                         <input type="checkbox" v-model="login_form.remember">
                                         Se souvenir de moi (cookie persistant 30 jours)
                                     </label>
                                 </div>
 
-                                <button type ="submit" name="bouton submit"class="button is-success is-fullwidth has-text-white"> Se connecter </button>
-                                <br>
-                                <p class="has-text-centered">
+                                <button type="submit" class="button is-success is-fullwidth has-text-white mt-4">Se connecter</button>
+
+                                <p class="has-text-centered mt-4">
                                     Pas encore de compte ? <a href="pages/formulaire_inscription.html">S'inscrire</a>
                                 </p>
+                            </form>
+
                         </div>
                     </div>
                 </section>
-            </form>
             </template>
             <!-- Page d'accueil affichée une fois l'utilisateur connecté -->
             <template v-else>
