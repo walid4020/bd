@@ -119,7 +119,7 @@ $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
                 <div class="box">
 
                     <!-- Titre avec le nom du groupe concerné -->
-                    <h1 class="has-text-centered title has-text-primary">
+                    <h1 class="has-text-centered title has-text-success-bold">
                         Nouvelle dépense
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
