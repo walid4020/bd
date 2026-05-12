@@ -68,12 +68,8 @@ $stmt->execute([
 
 // On ajoute ensuite les membres saisis par email (1 à 4)
 // Pour chaque email rempli, on cherche l'utilisateur dans la table users
-$members = [
-    $_POST['member_1'] ?? '',
-    $_POST['member_2'] ?? '',
-    $_POST['member_3'] ?? '',
-    $_POST['member_4'] ?? '',
-];
+// On récupère le tableau de membres envoyé depuis le formulaire
+$members = $_POST['members'] ?? [];
 
 foreach ($members as $email) {
     $email = trim($email);

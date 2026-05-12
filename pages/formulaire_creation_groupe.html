@@ -95,33 +95,22 @@
 
         <!-- Membres : on entre leurs emails pour les retrouver dans la table users -->
         <!-- Membre 1 obligatoire, les autres optionnels -->
+                <!-- Membres : champs dynamiques, on peut en ajouter autant qu'on veut -->
         <div class="field">
-            <label class="label mb-3" for="id_pour_input_email_membre_1"> Membre n°1 : </label>
-            <div class="control">
-                <input class="input is-small" type="email" name="member_1" placeholder="alexia@gmail.com" id="id_pour_input_email_membre_1" required>
+            <label class="label mb-3"> Membres : </label>
+            <!-- Conteneur où les champs sont ajoutés dynamiquement -->
+            <div id="membres_container">
+                <!-- Premier membre obligatoire -->
+                <div class="control mb-2">
+                    <input class="input is-small" type="email" name="members[]" placeholder="alexia@gmail.com" required>
+                </div>
             </div>
         </div>
 
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_email_membre_2"> Membre n°2 : </label>
-            <div class="control">
-                <input class="input is-small" type="email" name="member_2" placeholder="thomas@gmail.com" id="id_pour_input_email_membre_2">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_email_membre_3"> Membre n°3 : </label>
-            <div class="control">
-                <input class="input is-small" type="email" name="member_3" placeholder="lola@gmail.com" id="id_pour_input_email_membre_3">
-            </div>
-        </div>
-
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_email_membre_4"> Membre n°4 : </label>
-            <div class="control">
-                <input class="input is-small" type="email" name="member_4" placeholder="carl@gmail.com" id="id_pour_input_email_membre_4">
-            </div>
-        </div>
+        <!-- Bouton pour ajouter un nouveau champ email -->
+        <button type="button" class="button is-success is-light is-small mb-4" onclick="ajouterMembre()">
+            + Ajouter un membre
+        </button>
 
         <!-- Bouton de soumission -->
         <button type="submit" class="button is-primary is-fullwidth has-text-white mt-4"> Créer le groupe </button>
@@ -136,5 +125,21 @@
                 </div>
             </div>
         </section>
+                <script>
+            // Ajoute un nouveau champ email dans le conteneur
+            function ajouterMembre() {
+                const container = document.getElementById('membres_container');
+                const div = document.createElement('div');
+                div.className = 'control mb-2';
+                div.style.display = 'flex';
+                div.style.gap = '8px';
+                // Champ email + bouton ✕ pour supprimer ce membre
+                div.innerHTML = `
+                    <input class="input is-small" type="email" name="members[]" placeholder="email@exemple.com">
+                    <button type="button" class="button is-danger is-light is-small" onclick="this.parentElement.remove()">✕</button>
+                `;
+                container.appendChild(div);
+            }
+        </script>
     </body>
 </html>
