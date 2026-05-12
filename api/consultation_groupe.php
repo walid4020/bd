@@ -161,6 +161,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                         <!-- Tableau listant toutes les dépenses du groupe -->
                         <table class="table is-fullwidth is-striped is-hoverable">
                             <thead>
+                            <!-- Dépense -->
                                 <tr>
                                     <th>Nom de la dépense</th>
                                     <th>Montant</th>
