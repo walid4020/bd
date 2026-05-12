@@ -208,7 +208,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                                             <?php if ($depense['payer_id'] == $user_id): ?>
                                                 <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
                                                 class="button is-warning is-small">
-                                                    ✏️ Modifier
+                                                    Modifier
                                                 </a>
                                             <?php endif; ?>
                                         </td>
