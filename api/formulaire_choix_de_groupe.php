@@ -108,7 +108,7 @@ $groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php foreach ($groupes as $groupe): ?>
                                 <!-- Chaque groupe est un bouton cliquable qui mène directement à ses dépenses -->
                                 <a href="consultation_groupe.php?group_id=<?= $groupe['id'] ?>" 
-                                class="button is-primary is-light is-fullwidth" 
+                                class="button is-success is-light is-fullwidth" 
                                 style="height: auto; padding: 15px; justify-content: flex-start;">
                                     <div>
                                         <strong><?= htmlspecialchars($groupe['name']) ?></strong>
