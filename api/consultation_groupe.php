@@ -189,7 +189,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                 <div class="box">
 
                     <!-- Titre de la page avec le nom du groupe -->
-                    <h1 class="title has-text-success has-text-centered">
+                    <h1 class="title has-text-success-bold has-text-centered">
                          <?= htmlspecialchars($groupe['name']) ?>
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
@@ -266,7 +266,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                         Remboursements à faire
                     </h2>
                     <?php if (empty($remboursements)): ?>
-                        <p class="has-text-centered has-text-grey">Tout le monde est quitte ! ✅</p>
+                        <p class="has-text-centered has-text-success-bold">Tout le monde est quitte ! ✅</p>
                     <?php else: ?>
                         <?php foreach ($remboursements as $r): ?>
                             <div class="notification is-success is-light">
