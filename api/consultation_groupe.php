@@ -266,7 +266,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                         Remboursements à faire
                     </h2>
                     <?php if (empty($remboursements)): ?>
-                        <p class="has-text-centered has-text-success-bold">Tout le monde est quitte ! ✅</p>
+                        <p class="has-text-centered has-text-success-bold">Tout le monde est quitte ! </p>
                     <?php else: ?>
                         <?php foreach ($remboursements as $r): ?>
                             <div class="notification is-success is-light">
