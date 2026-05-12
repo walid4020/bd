@@ -14,7 +14,7 @@ if (!isset($_SESSION['user'])) {
 
 // 2. VÉRIFICATION QUE L'ID DU GROUPE A BIEN ÉTÉ ENVOYÉ
 // group_id est envoyé via POST depuis formulaire_choix_de_groupe.php
-if (!isset($_POST['group_id']) || empty($_POST['group_id'])) {
+if (!isset($_GET['group_id']) || empty($_GET['group_id'])) {    
     header('Location: https://divvyo.hepl-e-business.be/api/formulaire_choix_de_groupe.php');
     exit;
 }
@@ -33,7 +33,7 @@ try {
 }
 
 // 4. SÉCURISATION DE L'ID DU GROUPE (entier uniquement)
-$group_id = (int) $_POST['group_id'];
+$group_id = (int) $_GET['group_id'];
 $user_id  = $_SESSION['user']['id'];
 
 // 5. VÉRIFICATION QUE L'UTILISATEUR APPARTIENT BIEN À CE GROUPE

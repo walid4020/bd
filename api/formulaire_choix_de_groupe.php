@@ -103,37 +103,21 @@ $groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <a href="formulaire_creation_groupe.html">Créer un groupe</a>
                         </p>
 
-                    <?php else: ?>
-                        <!-- Formulaire de sélection d'un groupe -->
-                        <!-- action : page qui affichera les dépenses du groupe sélectionné -->
-                        <form action="../api/consultation_groupe.php" method="post">
-
-                            <div class="field">
-                                <label class="label" for="id_selection_de_groupe">
-                                    Quel groupe souhaitez-vous consulter ?
-                                </label>
-                            </div>
-
-                            <div class="control">
-                                <div class="select is-fullwidth">
-                                    <!-- Boucle PHP : on génère une option par groupe trouvé en BD -->
-                                    <select name="group_id" id="id_selection_de_groupe" required>
-                                        <option value="">-- Veuillez choisir un groupe --</option>
-                                        <?php foreach ($groupes as $groupe): ?>
-                                            <!-- value = ID du groupe en BD, texte = nom du groupe -->
-                                            <option value="<?= htmlspecialchars($groupe['id']) ?>">
-                                                <?= htmlspecialchars($groupe['name']) ?> (<?= htmlspecialchars($groupe['currency']) ?>)
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="button is-primary is-fullwidth has-text-white mt-4">
-                                Afficher les dépenses du groupe
-                            </button>
-
-                        </form>
+                   <?php else: ?>
+                        <div class="buttons is-flex is-flex-direction-column">
+                            <?php foreach ($groupes as $groupe): ?>
+                                <!-- Chaque groupe est un bouton cliquable qui mène directement à ses dépenses -->
+                                <a href="consultation_groupe.php?group_id=<?= $groupe['id'] ?>" 
+                                class="button is-primary is-light is-fullwidth" 
+                                style="height: auto; padding: 15px; justify-content: flex-start;">
+                                    <div>
+                                        <strong><?= htmlspecialchars($groupe['name']) ?></strong>
+                                        <br>
+                                        <small><?= htmlspecialchars($groupe['description']) ?> — <?= htmlspecialchars($groupe['currency']) ?></small>
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
                     <?php endif; ?>
 
                     <!-- Lien retour vers la page d'accueil -->
