@@ -99,7 +99,6 @@ $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
                     <a href="../index.html" class="navbar-item has-text-white">Accueil</a>
                     <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-white">Mes groupes</a>
                     <a href="../pages/formulaire_creation_groupe.html" class="navbar-item has-text-white">Créer un groupe</a>
-                    <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-white">Créer une dépense</a>
                     <!-- Déconnexion : détruit la session PHP et redirige vers la page de connexion -->
                     <a href="deconnexion.php" class="navbar-item has-text-white" style="font-weight: 600;">Se déconnecter</a>
                 </div>
