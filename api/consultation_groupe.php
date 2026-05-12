@@ -142,7 +142,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
     </head>
     <body>
         <!-- Barre de navigation principale : is-success applique le fond vert Bulma, role et aria-label améliorent l'accessibilité -->
-        <nav class="navbar is-success" role="navigation" aria-label="navigation principale">
+        <nav class="navbar is-success-dark" role="navigation" aria-label="navigation principale">
 
             <!-- Partie gauche de la navbar : contient le logo et le bouton -->
             <div class="navbar-brand">
@@ -167,12 +167,11 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
 
                 <!-- navbar-end pousse les liens vers la droite de la barre -->
                 <div class="navbar-end">
-                    <a href="../index.html" class="navbar-item has-text-dark">Accueil</a>
-                    <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-dark">Mes groupes</a>
-                    <a href="../pages/formulaire_creation_groupe.html" class="navbar-item has-text-dark">Créer un groupe</a>
-                    <a href="../pages/formulaire_creation_depense.html" class="navbar-item has-text-dark">Créer une dépense</a>
-                    <!-- Déconnexion : détruit la session PHP et redirige vers la page de connexion -->
-                    <a href="../api/deconnexion.php" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
+                    <a href="../index.html" class="navbar-item has-text-white">Accueil</a>
+                    <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-white">Mes groupes</a>
+                    <a href="../pages/formulaire_creation_groupe.html" class="navbar-item has-text-white">Créer un groupe</a>
+                    <a href="../pages/formulaire_creation_depense.html" class="navbar-item has-text-white">Créer une dépense</a>
+                    <a href="deconnexion.php" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
                 </div>
             </div>
         </nav>
