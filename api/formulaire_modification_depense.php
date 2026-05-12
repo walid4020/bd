@@ -67,14 +67,14 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
     </head>
     <body>
         <!-- Barre de navigation principale : is-success applique le fond vert Bulma, role et aria-label améliorent l'accessibilité -->
-        <nav class="navbar is-success" role="navigation" aria-label="navigation principale">
+        <nav class="navbar is-success" style="background-color: var(--bulma-success-dark); align-items: center;" role="navigation" aria-label="navigation principale">
 
             <!-- Partie gauche de la navbar : contient le logo et le bouton -->
             <div class="navbar-brand">
 
                 <!-- Logo cliquable qui ramène à l'accueil -->
                 <a class="navbar-item" href="../index.html">
-                    <img src="../assets/logo.png" alt="Divvyo" style="max-height: 40px;">
+                    <img src="../assets/logo.png" alt="Divvyo" style="max-height: 56px;">
                 </a>
 
                 <!-- Bouton : visible uniquement sur mobile, remplace les liens du menu.
@@ -92,10 +92,10 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
 
                 <!-- navbar-end pousse les liens vers la droite de la barre -->
                 <div class="navbar-end">
-                    <a href="../index.html" class="navbar-item">Accueil</a>
-                    <a href="../api/formulaire_choix_de_groupe.php" class="navbar-item">Mes groupes</a>
-                    <a href="formulaire_creation_groupe.html" class="navbar-item">Créer un groupe</a>
-                    <a href="formulaire_creation_depense.html" class="navbar-item">Créer une dépense</a>
+                    <a href="../index.html" class="navbar-item has-text-white">Accueil</a>
+                    <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-white">Mes groupes</a>
+                    <a href="../pages/formulaire_creation_groupe.html" class="navbar-item has-text-white">Créer un groupe</a>
+                    <a href="../pages/formulaire_creation_depense.html" class="navbar-item has-text-white">Créer une dépense</a>
                     <!-- Déconnexion : détruit la session PHP et redirige vers la page de connexion -->
                     <a href="../api/deconnexion.php" class="navbar-item has-text-white" style="font-weight:600;">Se déconnecter</a>
                 </div>
