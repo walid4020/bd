@@ -269,7 +269,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                         <p class="has-text-centered has-text-grey">Tout le monde est quitte ! ✅</p>
                     <?php else: ?>
                         <?php foreach ($remboursements as $r): ?>
-                            <div class="notification is-warning is-light">
+                            <div class="notification is-sucess is-light">
                                 <strong><?= htmlspecialchars($r['de']) ?></strong>
                                 doit
                                 <strong><?= number_format($r['montant'], 2) ?> <?= htmlspecialchars($groupe['currency']) ?></strong>
