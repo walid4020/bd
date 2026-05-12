@@ -64,6 +64,7 @@ $stmt_depenses = $connexion->prepare("
         e.description,
         e.amount,
         e.expense_date,
+        e.payer_id,
         u.first_name    AS payer_first_name,
         u.last_name     AS payer_last_name
     FROM expenses e
@@ -73,6 +74,7 @@ $stmt_depenses = $connexion->prepare("
 ");
 $stmt_depenses->execute(['group_id' => $group_id]);
 $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
+
 // 8. CALCUL DES SOLDES PAR MEMBRE
 // On additionne tout ce que chaque membre a payé dans ce groupe
 $stmt_soldes = $connexion->prepare("
@@ -169,6 +171,14 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                                     <th>Payé par</th>
                                     <th>Date</th>
                                 </tr>
+                            <!-- Action-->    
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Payé par</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($depenses as $depense): ?>
@@ -192,6 +202,15 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                                             <?= $depense['expense_date']
                                                 ? date('d/m/Y', strtotime($depense['expense_date']))
                                                 : '—' ?>
+                                        </td>
+                                        <!-- Pouvoir modifier la dépense encodée -->
+                                        <td>
+                                            <?php if ($depense['payer_id'] == $user_id): ?>
+                                                <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
+                                                class="button is-warning is-small">
+                                                    ✏️ Modifier
+                                                </a>
+                                            <?php endif; ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
