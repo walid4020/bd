@@ -183,7 +183,7 @@ $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
 
                         <!-- Bouton d'envoi -->
                         <button type="submit" class="button is-primary is-fullwidth has-text-white mt-4">
-                            ✅ Ajouter la dépense
+                            Ajouter la dépense
                         </button>
 
                     </form>
