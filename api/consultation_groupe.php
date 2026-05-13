@@ -135,6 +135,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
 <!DOCTYPE html>
 <html lang="fr">
     <head>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Dépenses du groupe </title>
         <!-- CSS : framework Bulma -->
@@ -196,7 +197,8 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
 
                     <?php else: ?>
                         <!-- Tableau listant toutes les dépenses du groupe -->
-                        <table class="table is-fullwidth is-striped is-hoverable">
+                        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                        <table class="table is-fullwidth is-striped is-hoverable" style="min-width: 500px;">
                             <thead>
                                 <tr>
                                     <th>Description</th>
@@ -243,6 +245,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        </div>
                     <?php endif; ?>
 
                     <!-- SECTION REMBOURSEMENTS : qui doit combien à qui -->
@@ -272,8 +275,8 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                         </a>
 
                         <!-- Lien retour vers la liste des groupes -->
-                        <a href="../api/formulaire_choix_de_groupe.php" class="button is-light is-fullwidth">
-                            ← Retour à mes groupes
+                        <a href="dashboard.php" class="button is-light is-fullwidth">
+                            ← Retour à l'accueil
                         </a>
 
                     </div>
