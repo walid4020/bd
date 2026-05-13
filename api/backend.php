@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+// code repris de Moodle 3.PDO => JSON
 // 1. CONFIGURATION DE LA BASE DE DONNÉES
 define('USER','vy44dy72oodv'); 
 define('PASSWD','d3-d2d!4oo'); 
