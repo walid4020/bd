@@ -257,27 +257,26 @@ if ($group_id) {
                                         <th>Action</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    <?php foreach ($depenses as $depense): ?>
+                                        <tr>
+                                            <td><?= htmlspecialchars($depense['description']) ?></td>
+                                            <td><?= number_format($depense['amount'], 2) ?></td>
+                                            <td><?= htmlspecialchars($groupe_selectionne['currency']) ?></td>
+                                            <td><?= htmlspecialchars($depense['payer_first_name'] . ' ' . $depense['payer_last_name']) ?></td>
+                                            <td><?= $depense['expense_date'] ? date('d/m/Y', strtotime($depense['expense_date'])) : '—' ?></td>
+                                            <td>
+                                                <!-- Seul celui qui a créé la dépense peut la modifier -->
+                                                <?php if ($depense['payer_id'] == $user_id): ?>
+                                                    <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
+                                                    class="button is-success is-soft is-small">Modifier</a>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
                             </table>
                         </div>
-                            <tbody>
-                                <?php foreach ($depenses as $depense): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($depense['description']) ?></td>
-                                        <td><?= number_format($depense['amount'], 2) ?></td>
-                                        <td><?= htmlspecialchars($groupe_selectionne['currency']) ?></td>
-                                        <td><?= htmlspecialchars($depense['payer_first_name'] . ' ' . $depense['payer_last_name']) ?></td>
-                                        <td><?= $depense['expense_date'] ? date('d/m/Y', strtotime($depense['expense_date'])) : '—' ?></td>
-                                        <td>
-                                            <!-- Seul celui qui a créé la dépense peut la modifier -->
-                                            <?php if ($depense['payer_id'] == $user_id): ?>
-                                                <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
-                                                   class="button is-success is-soft is-small">Modifier</a>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
                     <?php endif; ?>
 
                     <!-- Section remboursements -->
