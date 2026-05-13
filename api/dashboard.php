@@ -271,14 +271,16 @@ if ($group_id) {
                                 <strong><?= number_format($r['montant'], 2) ?> <?= htmlspecialchars($groupe_selectionne['currency']) ?></strong>
                                 à
                                 <strong><?= htmlspecialchars($r['a']) ?></strong>
-                                                <!-- Bouton suppression du groupe, affiché sous les remboursements -->
-                                                <form action="suppression_groupe.php" method="post" class="mt-4"
-                                                    onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ce groupe ? Toutes les dépenses associées seront également supprimées. Cette action est irréversible.');">
-                                                    <input type="hidden" name="group_id" value="<?= $group_id ?>">
-                                                    <button type="submit" class="button is-danger is-light is-fullwidth">
-                                                        Supprimer ce groupe
-                                                    </button>
-                                                </form>
+                    <?php endif; ?>
+
+                    <!-- Bouton suppression, affiché une seule fois après les remboursements -->
+                    <form action="suppression_groupe.php" method="post" class="mt-4"
+                          onsubmit="return confirm('Êtes-vous vraiment sûr de vouloir supprimer ce groupe ? Toutes les dépenses associées seront également supprimées. Cette action est irréversible.');">
+                        <input type="hidden" name="group_id" value="<?= $group_id ?>">
+                        <button type="submit" class="button is-danger is-light is-fullwidth">
+                            Supprimer ce groupe
+                        </button>
+                    </form>
 
                             </div>
                         <?php endforeach; ?>
