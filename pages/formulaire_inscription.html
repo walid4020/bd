@@ -5,6 +5,14 @@
         <title> Inscription </title>
         <!-- balise permettant de relier notre HTML au framework bulma-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+        <style>
+            /* Sur mobile, on réduit le padding du formulaire pour qu'il respire mieux */
+            @media (max-width: 768px) {
+                .panneau-droit {
+                    padding: 1.5rem 1rem !important;
+                }
+            }
+        </style>
     </head>
         <body style="background-color: var(--bulma-success-dark);">
         <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--bulma-success-dark); padding: 1.5rem;">
@@ -15,7 +23,7 @@
                 </div>
 
                 <!-- Panneau droit : formulaire d'inscription -->
-                <div style="flex: 1; background: white; padding: 3rem 2.5rem; overflow-y: auto;">
+                <div class="panneau-droit" style="flex: 1; background: white; padding: 3rem 2.5rem; overflow-y: auto;">
 
         <form action="../api/inscription_reception_des_donnees.php" method="post">
         <h1 class="has-text-centered title" style="color: var(--bulma-success-dark);"> Inscription </h1>
