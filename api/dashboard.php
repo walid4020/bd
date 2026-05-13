@@ -271,6 +271,8 @@ if ($group_id) {
                                 <strong><?= number_format($r['montant'], 2) ?> <?= htmlspecialchars($groupe_selectionne['currency']) ?></strong>
                                 à
                                 <strong><?= htmlspecialchars($r['a']) ?></strong>
+                            </div>
+                        <?php endforeach; ?>
                     <?php endif; ?>
 
                     <!-- Bouton suppression, affiché une seule fois après les remboursements -->
@@ -281,10 +283,6 @@ if ($group_id) {
                             Supprimer ce groupe
                         </button>
                     </form>
-
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
 
                 </div>
 
