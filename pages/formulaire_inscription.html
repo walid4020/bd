@@ -14,6 +14,19 @@
                 }
             }
         </style>
+        <style>
+            /* Correction du style iOS sur les champs auto-remplis */
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus {
+                -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+                -webkit-text-fill-color: #363636 !important;
+            }
+            /* Force la couleur des labels sur mobile iOS */
+            .label {
+                color: #363636 !important;
+            }
+        </style>
     </head>
         <body style="background-color: var(--bulma-success-dark);">
         <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--bulma-success-dark); padding: 1.5rem;">
