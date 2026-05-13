@@ -149,19 +149,22 @@ if ($group_id) {
     <!-- En-tête : logo à gauche, bouton déconnexion à droite -->
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
         <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
-        <!-- Message de bienvenue personnalisé avec le prénom de l'utilisateur connecté -->
-        <p style="color: white; font-weight: 600; font-size: 1rem;">
-        Bienvenu, <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
-        </p>
-        <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
-    </div>
 
     <!-- MISE EN PAGE DEUX PANNEAUX -->
     <div style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
 
         <!-- PANNEAU GAUCHE (1/3) -->
         <div style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">
+        
+        <!-- Message de bienvenue affiché en haut du panneau gauche -->
+        <p style="color: white; font-weight: 600; font-size: 1.1rem;">
+            Bienvenu, <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
+        </p>
 
+        <!-- Bouton créer un nouveau groupe -->
+        <a href="../pages/formulaire_creation_groupe.html" class="button is-success is-soft is-fullwidth">
+            + Nouveau groupe
+        </a>
             <!-- Bouton créer un nouveau groupe -->
             <a href="../pages/formulaire_creation_groupe.html" class="button is-success is-soft is-fullwidth">
                 + Nouveau groupe
