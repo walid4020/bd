@@ -245,7 +245,11 @@ if ($group_id) {
                     <?php if (empty($depenses)): ?>
                         <p class="has-text-centered has-text-grey mb-4">Aucune dépense enregistrée pour ce groupe.</p>
                     <?php else: ?>
-                        <table class="table is-fullwidth is-striped is-hoverable mb-4">
+                        <div class="table-container">
+                            <table class="table is-fullwidth is-striped is-hoverable mb-4">
+                                ...
+                            </table>
+                        </div>
                             <thead>
                                 <tr>
                                     <th>Description</th>
