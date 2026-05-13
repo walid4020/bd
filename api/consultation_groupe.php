@@ -231,7 +231,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                                         <td>
                                             <?php if ($depense['payer_id'] == $user_id): ?>
                                                 <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
-                                                class="button is-success is-bold is-small">
+                                                class="button is-success is-soft is-small">
                                                     Modifier
                                                 </a>
                                             <?php endif; ?>
@@ -264,7 +264,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                     <div class="buttons is-flex is-flex-direction-column mt-5">
 
                         <!-- Lien vers la création d'une dépense dans ce groupe -->
-                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-success is-bold is-fullwidth">
+                        <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is-success is-soft is-fullwidth">
                              💸 Ajouter une dépense
                         </a>
 

@@ -154,7 +154,7 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
                             </div>
                         </div>
 
-                        <button type="submit" class="button is-warning is-fullwidth mt-4">
+                        <button type="submit" class="button is-success is-soft is-fullwidth mt-4">
                             Enregistrer les modifications
                         </button>
 
