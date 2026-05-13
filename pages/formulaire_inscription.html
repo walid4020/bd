@@ -6,14 +6,24 @@
         <!-- balise permettant de relier notre HTML au framework bulma-->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
-    <body style="background-color: var(--bulma-success-dark);">
-        <!-- CSS : création du "contenant" du formulaire cardre blanc-->
-        <section class="section" style="min-height: 100vh;">
-            <div class="container" style="max-width: 500px;">
-                <div class="box">
+        <body style="background-color: var(--bulma-success-dark);">
+        <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--bulma-success-dark); padding: 1.5rem;">
+            <div style="display: flex; width: 100%; max-width: 1000px; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.12);">
+
+                <!-- Panneau gauche : image de présentation, masquée sur mobile -->
+                <div class="is-hidden-mobile" style="flex: 0 0 45%; background-image: url('../assets/slogan_inscription.png'); background-size: cover; background-position: center;">
+                </div>
+
+                <!-- Panneau droit : formulaire d'inscription -->
+                <div style="flex: 1; background: white; padding: 3rem 2.5rem; overflow-y: auto;">
+
+                    <!-- Logo centré en haut du formulaire -->
+                    <div class="has-text-centered mb-4">
+                        <img src="../assets/logo.png" alt="Divvyo" style="max-height: 90px;">
+                    </div>
+
         <form action="../api/inscription_reception_des_donnees.php" method="post">
-        <!-- CSS : ajout de classe pour changer l'apparence du titre (voir pour changer de couleur)-->
-        <h1 class="has-text-centered title has-text-success-bold"> Inscription </h1>
+        <h1 class="has-text-centered title" style="color: var(--bulma-success-dark);"> Inscription </h1>
 
         <!-- Zones de texte -->
          <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
