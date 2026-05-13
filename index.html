@@ -13,6 +13,15 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
+        <style>
+            /* Correction du style iOS sur les champs auto-remplis */
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus {
+                -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+                -webkit-text-fill-color: #363636 !important;
+            }
+        </style>
     </head>
 
     <body> 
