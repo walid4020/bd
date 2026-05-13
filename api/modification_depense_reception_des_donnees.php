@@ -71,6 +71,6 @@ $stmt->execute([
 ]);
 
 // 7. REDIRECTION VERS LA LISTE DES GROUPES
-header('Location: https://divvyo.hepl-e-business.be/api/formulaire_choix_de_groupe.php');
+header('Location: https://divvyo.hepl-e-business.be/api/dashboard.php?group_id=' . $group_id);
 exit;
 ?>
