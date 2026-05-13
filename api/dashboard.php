@@ -146,9 +146,12 @@ if ($group_id) {
 </head>
 <body style="background-color: var(--bulma-success-dark); min-height: 100vh;">
 
-    <!-- En-tête : logo à gauche, bouton déconnexion à droite -->
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
-        <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
+    
+        <!-- En-tête : logo à gauche, bouton déconnexion à droite -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
+            <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
+            <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
+        </div>
 
     <!-- MISE EN PAGE DEUX PANNEAUX -->
     <div style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
@@ -165,10 +168,7 @@ if ($group_id) {
         <a href="../pages/formulaire_creation_groupe.html" class="button is-success is-soft is-fullwidth">
             + Nouveau groupe
         </a>
-            <!-- Bouton créer un nouveau groupe -->
-            <a href="../pages/formulaire_creation_groupe.html" class="button is-success is-soft is-fullwidth">
-                + Nouveau groupe
-            </a>
+            
 
             <!-- Liste des groupes de l'utilisateur -->
             <div class="box" style="flex: 1; overflow-y: auto;">
