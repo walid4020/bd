@@ -161,7 +161,7 @@ if ($group_id) {
         
         <!-- Message de bienvenue affiché en haut du panneau gauche -->
         <p style="color: white; font-weight: 600; font-size: 1.4rem; text-align: center;">
-            Bienvenu, <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
+            Bienvenu <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
         </p>
 
         <!-- Bouton créer un nouveau groupe -->
