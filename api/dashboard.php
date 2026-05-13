@@ -160,7 +160,7 @@ if ($group_id) {
         <div style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">
         
         <!-- Message de bienvenue affiché en haut du panneau gauche -->
-        <p style="color: white; font-weight: 600; font-size: 1.1rem;">
+        <p style="color: white; font-weight: 600; font-size: 1.4rem; text-align: center;">
             Bienvenu, <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
         </p>
 
