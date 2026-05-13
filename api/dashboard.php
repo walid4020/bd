@@ -143,6 +143,25 @@ if ($group_id) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Divvyo – Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <style>
+        /* Sur mobile, les deux panneaux du dashboard s'empilent verticalement */
+        @media (max-width: 768px) {
+            .deux-panneaux {
+                flex-direction: column !important;
+                height: auto !important;
+            }
+            .panneau-gauche {
+                flex: none !important;
+                width: 100% !important;
+                overflow: visible !important;
+            }
+            .panneau-droit {
+                flex: none !important;
+                width: 100% !important;
+                overflow: visible !important;
+            }
+        }
+    </style>
 </head>
 <body style="background-color: var(--bulma-success-dark); min-height: 100vh;">
 
@@ -154,11 +173,9 @@ if ($group_id) {
         </div>
 
     <!-- MISE EN PAGE DEUX PANNEAUX -->
-    <div style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
-
+        <div class="deux-panneaux" style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
         <!-- PANNEAU GAUCHE (1/3) -->
-        <div style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">
-        
+<       div class="panneau-gauche" style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">           
         <!-- Message de bienvenue affiché en haut du panneau gauche -->
         <p style="color: white; font-weight: 600; font-size: 1.4rem; text-align: center;">
             Bienvenu <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
@@ -193,7 +210,7 @@ if ($group_id) {
         </div>
 
         <!-- PANNEAU DROIT (2/3) -->
-        <div style="flex: 1; overflow-y: auto;">
+        <div class="panneau-droit" style="flex: 1; overflow-y: auto;">
 
             <?php if ($groupe_selectionne): ?>
                 <div class="box" style="min-height: 100%;">
