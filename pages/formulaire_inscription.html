@@ -27,21 +27,25 @@
 
         <!-- Zones de texte -->
          <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-         <div class="field">
-        <label class="label mb-3" for="id_pour_input_prenom"> Prénom : </label>
-           <div class="control">
-            <!-- CSS : Rendre le cadre moins épais-->
-            <input class="input is-small" type="text"name="firstname" placeholder="Claude" id="id_pour_input_prenom" required> 
-           </div>
-         </div>
-         <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-          <div class="field">
-        <label class="label mb-3" for="id_pour_input_nom"> Nom : </label>
-            <div class="control">
-            <!-- CSS : Rendre le cadre moins épais-->
-            <input class="input is-small" type="text"name="lastname" placeholder="Dupont" id="id_pour_input_nom"required> 
+                <!-- Prénom et Nom côte à côte sur la même ligne -->
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label mb-3" for="id_pour_input_prenom"> Prénom : </label>
+                        <div class="control">
+                            <input class="input is-small" type="text" name="firstname" placeholder="Claude" id="id_pour_input_prenom" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label mb-3" for="id_pour_input_nom"> Nom : </label>
+                        <div class="control">
+                            <input class="input is-small" type="text" name="lastname" placeholder="Dupont" id="id_pour_input_nom" required>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         
           <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
            <div class="field">
