@@ -47,6 +47,7 @@ createApp({
                 if (data.success) {
                     // Si succès, on enregistre l'utilisateur dans currentUser
                     this.currentUser = data.user;
+                    window.location.href = 'api/dashboard.php';
                     // On vide le formulaire
                     this.login_form = { email: '', password: '', remember: false };
                 } else {
@@ -85,6 +86,7 @@ createApp({
                 // Si le serveur dit qu'on est déjà connecté (via session PHP)
                 if (data.loggedIn) {
                     this.currentUser = data.user;
+                    window.location.href = 'api/dashboard.php';
                 } else if (data.remembered_user) {
                     // Si un cookie existe, on pourrait pré-remplir l'email
                     this.login_form.email = data.remembered_user;
