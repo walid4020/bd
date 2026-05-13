@@ -175,7 +175,7 @@ if ($group_id) {
     <!-- MISE EN PAGE DEUX PANNEAUX -->
         <div class="deux-panneaux" style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
         <!-- PANNEAU GAUCHE (1/3) -->
-<       div class="panneau-gauche" style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">           
+        <div class="panneau-gauche" style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">           
         <!-- Message de bienvenue affiché en haut du panneau gauche -->
         <p style="color: white; font-weight: 600; font-size: 1.4rem; text-align: center;">
             Bienvenu <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
