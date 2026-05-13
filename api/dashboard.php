@@ -151,7 +151,7 @@ if ($group_id) {
         <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
         <!-- Message de bienvenue personnalisé avec le prénom de l'utilisateur connecté -->
         <p style="color: white; font-weight: 600; font-size: 1rem;">
-        Bienvenu, <?= htmlspecialchars($_SESSION['user']['first_name']) ?> 👋
+        Bienvenu, <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
         </p>
         <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
     </div>
