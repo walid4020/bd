@@ -43,8 +43,6 @@ $groupes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <!--force le light mode -->
-        <meta name="color-scheme" content="light">
         <title> Mes groupes </title>
         <!-- CSS : framework Bulma -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">

@@ -139,8 +139,6 @@ if ($group_id) {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <!--force le light mode -->
     <meta name="color-scheme" content="light">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Divvyo – Dashboard</title>
