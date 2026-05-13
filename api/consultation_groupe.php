@@ -177,6 +177,14 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                 </div>
             </div>
         </nav>
+        <header style="background-color: #257942; color: white;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
+                <a href="dashboard.php">
+                    <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
+                </a>
+                <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
+            </div>
+        </header>
         <section class="section" style="min-height: 100vh;">
             <div class="container" style="max-width: 700px;">
                 <div class="box">
