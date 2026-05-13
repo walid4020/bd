@@ -72,48 +72,15 @@ $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
     <body style="background-color: var(--bulma-success-dark);">
-        <!-- Barre de navigation principale, fond vert foncé sur toute la largeur de l'écran -->
-        <nav class="navbar is-success" style="background-color: var(--bulma-success-dark);"  role="navigation" aria-label="navigation principale">
+                <!-- En-tête : logo cliquable qui ramène au dashboard, bouton déconnexion à droite -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
+            <a href="dashboard.php">
+                <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
+            </a>
+            <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
+        </div>
 
-            <!-- Partie gauche : logo cliquable qui ramène à l'accueil -->
-            <div class="navbar-brand">
-                <a class="navbar-item" href="../index.html">
-                    <img src="../assets/logo.png" alt="Divvyo" style="max-height: 56px;">
-                </a>
-
-                <!-- Bouton hamburger : visible uniquement sur mobile, remplace les liens du menu.
-                    Les 3 spans forment les 3 traits de l'icône hamburger.
-                    aria-hidden="true" les masque aux lecteurs d'écran car le bouton parent a déjà un aria-label. -->
-                <a role="button" class="navbar-burger" id="burger" aria-label="menu" aria-expanded="false">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-
-            <!-- Menu principal : masqué sur mobile par défaut, affiché quand la classe is-active est ajoutée via JS -->
-            <div class="navbar-menu" id="navMenu">
-
-                <!-- navbar-end pousse les liens vers la droite de la barre -->
-                <div class="navbar-end">
-                    <a href="../index.html" class="navbar-item has-text-white">Accueil</a>
-                    <a href="formulaire_choix_de_groupe.php" class="navbar-item has-text-white">Mes groupes</a>
-                    <a href="../pages/formulaire_creation_groupe.html" class="navbar-item has-text-white">Créer un groupe</a>
-                    <!-- Déconnexion : détruit la session PHP et redirige vers la page de connexion -->
-                    <a href="deconnexion.php" class="navbar-item has-text-white" style="font-weight: 600;">Se déconnecter</a>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Sur mobile, un clic sur le hamburger ouvre ou ferme le menu
-            en ajoutant/retirant la classe is-active sur les deux éléments concernés. -->
-        <script>
-            document.getElementById('burger').addEventListener('click', function() {
-                this.classList.toggle('is-active');
-                document.getElementById('navMenu').classList.toggle('is-active');
-            });
-        </script>
-        <section class="section" style="min-height: 100vh;">
+        <section class="section" style="min-height: calc(100vh - 70px);">
             <div class="container" style="max-width: 500px;">
                 <div class="box">
 
