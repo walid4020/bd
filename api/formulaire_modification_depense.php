@@ -126,7 +126,7 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
 
                     <br>
                     <p class="has-text-centered">
-                        <a href="../api/formulaire_choix_de_groupe.php">← Retour à mes groupes</a>
+                        <a href="dashboard.php">← Retour à l'accueil</a>
                     </p>
 
                 </div>
