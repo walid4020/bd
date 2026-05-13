@@ -245,21 +245,20 @@ if ($group_id) {
                     <?php if (empty($depenses)): ?>
                         <p class="has-text-centered has-text-grey mb-4">Aucune dépense enregistrée pour ce groupe.</p>
                     <?php else: ?>
-                        <div class="table-container">
-                            <table class="table is-fullwidth is-striped is-hoverable mb-4">
-                                ...
+                        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                            <table class="table is-fullwidth is-striped is-hoverable mb-4" style="min-width: 500px;">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Montant</th>
+                                        <th>Devise</th>
+                                        <th>Payé par</th>
+                                        <th>Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
                             </table>
                         </div>
-                            <thead>
-                                <tr>
-                                    <th>Description</th>
-                                    <th>Montant</th>
-                                    <th>Devise</th>
-                                    <th>Payé par</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
                             <tbody>
                                 <?php foreach ($depenses as $depense): ?>
                                     <tr>
