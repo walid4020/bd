@@ -109,7 +109,7 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
                 document.getElementById('navMenu').classList.toggle('is-active');
             });
         </script>
-        <section class="section">
+        <section class="section" style="min-height: 100vh;">
             <div class="container" style="max-width: 500px;">
                 <div class="box">
 

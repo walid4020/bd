@@ -173,7 +173,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                 </div>
             </div>
         </nav>
-        <section class="section">
+        <section class="section" style="min-height: 100vh;">
             <div class="container" style="max-width: 700px;">
                 <div class="box">
 
