@@ -135,10 +135,13 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Dépenses du groupe </title>
         <!-- CSS : framework Bulma -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+        <style>
+            body { overflow-x: hidden; }
+        </style>
     </head>
     <body style="background-color: var(--bulma-success-dark);">
         <!-- Barre de navigation principale, fond vert foncé sur toute la largeur de l'écran -->
