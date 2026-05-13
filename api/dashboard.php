@@ -1,0 +1,290 @@
+<?php
+// Dashboard principal - vue globale de l'utilisateur connecté
+
+// 1. DÉMARRAGE DE LA SESSION
+session_start();
+
+// Si l'utilisateur n'est pas connecté, on le renvoie au login
+if (!isset($_SESSION['user'])) {
+    header('Location: ../index.html');
+    exit;
+}
+
+// 2. CONNEXION À LA BASE DE DONNÉES
+define('USER', 'vy44dy72oodv');
+define('PASSWD', 'd3-d2d!4oo');
+define('SERVER', 'localhost');
+define('BASE', 'ebus2_projet04_viiy78');
+
+try {
+    $dsn = 'mysql:host=' . SERVER . ';dbname=' . BASE . ';charset=utf8';
+    $connexion = new PDO($dsn, USER, PASSWD);
+} catch (PDOException $e) {
+    die('Échec de la connexion à la base de données');
+}
+
+$user_id = $_SESSION['user']['id'];
+
+// 3. RÉCUPÉRATION DE TOUS LES GROUPES DE L'UTILISATEUR (panneau gauche)
+$stmt_groupes = $connexion->prepare("
+    SELECT ag.id, ag.name, ag.description, ag.currency
+    FROM account_groups ag
+    INNER JOIN group_users gu ON gu.account_group_id = ag.id
+    WHERE gu.user_id = :user_id
+    ORDER BY ag.created_at DESC
+");
+$stmt_groupes->execute(['user_id' => $user_id]);
+$groupes = $stmt_groupes->fetchAll(PDO::FETCH_ASSOC);
+
+// 4. GROUPE SÉLECTIONNÉ : celui passé dans l'URL, ou le premier de la liste par défaut
+$group_id = null;
+$groupe_selectionne = null;
+$membres = [];
+$depenses = [];
+$remboursements = [];
+
+if (isset($_GET['group_id'])) {
+    $group_id = (int) $_GET['group_id'];
+} elseif (!empty($groupes)) {
+    $group_id = $groupes[0]['id'];
+}
+
+// 5. SI UN GROUPE EST SÉLECTIONNÉ, ON CHARGE SES DONNÉES (panneau droit)
+if ($group_id) {
+
+    // Vérification que l'utilisateur appartient bien à ce groupe
+    $stmt_check = $connexion->prepare("
+        SELECT account_group_id FROM group_users
+        WHERE account_group_id = :group_id AND user_id = :user_id
+    ");
+    $stmt_check->execute(['group_id' => $group_id, 'user_id' => $user_id]);
+
+    if (!$stmt_check->fetch()) {
+        $group_id = null;
+    } else {
+
+        // Nom, description et devise du groupe sélectionné
+        $stmt_detail = $connexion->prepare("
+            SELECT name, description, currency FROM account_groups WHERE id = :group_id
+        ");
+        $stmt_detail->execute(['group_id' => $group_id]);
+        $groupe_selectionne = $stmt_detail->fetch(PDO::FETCH_ASSOC);
+
+        // Membres du groupe
+        $stmt_membres = $connexion->prepare("
+            SELECT u.first_name, u.last_name
+            FROM users u
+            INNER JOIN group_users gu ON gu.user_id = u.id
+            WHERE gu.account_group_id = :group_id
+            ORDER BY u.first_name ASC
+        ");
+        $stmt_membres->execute(['group_id' => $group_id]);
+        $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
+
+        // Dépenses du groupe, triées de la plus récente à la plus ancienne
+        $stmt_depenses = $connexion->prepare("
+            SELECT e.id, e.description, e.amount, e.expense_date, e.payer_id,
+                   u.first_name AS payer_first_name, u.last_name AS payer_last_name
+            FROM expenses e
+            LEFT JOIN users u ON u.id = e.payer_id
+            WHERE e.account_group_id = :group_id
+            ORDER BY e.expense_date DESC
+        ");
+        $stmt_depenses->execute(['group_id' => $group_id]);
+        $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
+
+        // Calcul du total payé par chaque membre
+        $stmt_soldes = $connexion->prepare("
+            SELECT u.id, u.first_name, u.last_name,
+                   COALESCE(SUM(e.amount), 0) AS total_paye
+            FROM users u
+            INNER JOIN group_users gu ON gu.user_id = u.id
+            LEFT JOIN expenses e ON e.payer_id = u.id AND e.account_group_id = :group_id
+            WHERE gu.account_group_id = :group_id
+            GROUP BY u.id, u.first_name, u.last_name
+        ");
+        $stmt_soldes->execute(['group_id' => $group_id]);
+        $membres_soldes = $stmt_soldes->fetchAll(PDO::FETCH_ASSOC);
+
+        // Part équitable par personne et calcul du solde de chacun
+        $total_depenses = array_sum(array_column($membres_soldes, 'total_paye'));
+        $nb_membres = count($membres_soldes);
+        $part_par_personne = $nb_membres > 0 ? $total_depenses / $nb_membres : 0;
+
+        foreach ($membres_soldes as &$m) {
+            $m['solde'] = $m['total_paye'] - $part_par_personne;
+        }
+        unset($m);
+
+        // Algorithme de simplification des dettes (qui doit combien à qui)
+        $crediteurs = [];
+        $debiteurs = [];
+        foreach ($membres_soldes as $m) {
+            if ($m['solde'] > 0.01)      $crediteurs[] = ['nom' => $m['first_name'] . ' ' . $m['last_name'], 'solde' => $m['solde']];
+            elseif ($m['solde'] < -0.01) $debiteurs[]  = ['nom' => $m['first_name'] . ' ' . $m['last_name'], 'solde' => $m['solde']];
+        }
+
+        $i = 0; $j = 0;
+        while ($i < count($debiteurs) && $j < count($crediteurs)) {
+            $montant = min(abs($debiteurs[$i]['solde']), $crediteurs[$j]['solde']);
+            $remboursements[] = ['de' => $debiteurs[$i]['nom'], 'a' => $crediteurs[$j]['nom'], 'montant' => $montant];
+            $debiteurs[$i]['solde'] += $montant;
+            $crediteurs[$j]['solde'] -= $montant;
+            if (abs($debiteurs[$i]['solde']) < 0.01) $i++;
+            if ($crediteurs[$j]['solde'] < 0.01) $j++;
+        }
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divvyo – Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+</head>
+<body style="background-color: var(--bulma-success-dark); min-height: 100vh;">
+
+    <!-- En-tête : logo à gauche, bouton déconnexion à droite -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
+        <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
+        <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
+    </div>
+
+    <!-- MISE EN PAGE DEUX PANNEAUX -->
+    <div style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
+
+        <!-- PANNEAU GAUCHE (1/3) -->
+        <div style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">
+
+            <!-- Bouton créer un nouveau groupe -->
+            <a href="../pages/formulaire_creation_groupe.html" class="button is-success is-soft is-fullwidth">
+                + Nouveau groupe
+            </a>
+
+            <!-- Liste des groupes de l'utilisateur -->
+            <div class="box" style="flex: 1; overflow-y: auto;">
+                <h2 class="title is-5 mb-3" style="color: var(--bulma-success-dark);">Mes groupes</h2>
+
+                <?php if (empty($groupes)): ?>
+                    <p class="has-text-grey">Aucun groupe pour l'instant.</p>
+                <?php else: ?>
+                    <?php foreach ($groupes as $g): ?>
+                        <!-- Chaque groupe recharge la page avec son ID dans l'URL -->
+                        <a href="dashboard.php?group_id=<?= $g['id'] ?>"
+                           class="button is-fullwidth mb-2 <?= $g['id'] == $group_id ? 'is-success' : 'is-success is-soft' ?>"
+                           style="height: auto; padding: 10px; justify-content: flex-start; white-space: normal; text-align: left;">
+                            <div>
+                                <strong><?= htmlspecialchars($g['name']) ?></strong><br>
+                                <small><?= htmlspecialchars($g['description']) ?> — <?= htmlspecialchars($g['currency']) ?></small>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <!-- PANNEAU DROIT (2/3) -->
+        <div style="flex: 1; overflow-y: auto;">
+
+            <?php if ($groupe_selectionne): ?>
+                <div class="box" style="min-height: 100%;">
+
+                    <!-- Nom du groupe sélectionné -->
+                    <h1 class="title mb-1" style="color: var(--bulma-success-dark);">
+                        <?= htmlspecialchars($groupe_selectionne['name']) ?>
+                    </h1>
+
+                    <!-- Description et devise -->
+                    <p class="has-text-grey mb-3">
+                        <?= htmlspecialchars($groupe_selectionne['description']) ?>
+                        — <?= htmlspecialchars($groupe_selectionne['currency']) ?>
+                    </p>
+
+                    <!-- Membres affichés sous forme de tags -->
+                    <div class="tags mb-4">
+                        <?php foreach ($membres as $membre): ?>
+                            <span class="tag is-success is-light">
+                                <?= htmlspecialchars($membre['first_name'] . ' ' . $membre['last_name']) ?>
+                            </span>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <!-- Bouton ajouter une dépense dans ce groupe -->
+                    <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>"
+                       class="button is-success is-soft is-fullwidth mb-4">
+                        + Dépense
+                    </a>
+
+                    <!-- Tableau des dépenses du groupe -->
+                    <?php if (empty($depenses)): ?>
+                        <p class="has-text-centered has-text-grey mb-4">Aucune dépense enregistrée pour ce groupe.</p>
+                    <?php else: ?>
+                        <table class="table is-fullwidth is-striped is-hoverable mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Devise</th>
+                                    <th>Payé par</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($depenses as $depense): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($depense['description']) ?></td>
+                                        <td><?= number_format($depense['amount'], 2) ?></td>
+                                        <td><?= htmlspecialchars($groupe_selectionne['currency']) ?></td>
+                                        <td><?= htmlspecialchars($depense['payer_first_name'] . ' ' . $depense['payer_last_name']) ?></td>
+                                        <td><?= $depense['expense_date'] ? date('d/m/Y', strtotime($depense['expense_date'])) : '—' ?></td>
+                                        <td>
+                                            <!-- Seul celui qui a créé la dépense peut la modifier -->
+                                            <?php if ($depense['payer_id'] == $user_id): ?>
+                                                <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
+                                                   class="button is-success is-soft is-small">Modifier</a>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+
+                    <!-- Section remboursements -->
+                    <h2 class="subtitle has-text-weight-bold" style="color: var(--bulma-success-dark);">
+                        Remboursements à faire
+                    </h2>
+                    <?php if (empty($remboursements)): ?>
+                        <p class="has-text-centered" style="color: var(--bulma-success-dark);">Tout le monde est quitte !</p>
+                    <?php else: ?>
+                        <?php foreach ($remboursements as $r): ?>
+                            <div class="notification is-success is-light">
+                                <strong><?= htmlspecialchars($r['de']) ?></strong>
+                                doit
+                                <strong><?= number_format($r['montant'], 2) ?> <?= htmlspecialchars($groupe_selectionne['currency']) ?></strong>
+                                à
+                                <strong><?= htmlspecialchars($r['a']) ?></strong>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+
+                </div>
+
+            <?php else: ?>
+                <!-- Affiché si l'utilisateur n'a encore aucun groupe -->
+                <div class="box" style="min-height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <p class="has-text-grey has-text-centered">
+                        Vous n'avez pas encore de groupe.<br>
+                        Commencez par en créer un avec le bouton "+ Nouveau groupe".
+                    </p>
+                </div>
+            <?php endif; ?>
+
+        </div>
+    </div>
+
+</body>
+</html>
