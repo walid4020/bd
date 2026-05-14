@@ -276,12 +276,7 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
 
                     <!-- Boutons de navigation -->
                     <div class="buttons is-flex is-flex-direction-column mt-5">
-
-                        <!-- Bouton pour exporter toutes les dépenses du groupe au format PDF -->
-                        <a href="export_pdf.php?group_id=<?= $group_id ?>" class="button is-danger is-fullwidth">
-                        EXPORT PDF
-                        </a>
-
+                        
                         <!-- Lien vers la création d'une dépense dans ce groupe -->
                         <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>" class="button is var(--bulma-success-dark)is-fullwidth">
                              💸 Ajouter une dépense
