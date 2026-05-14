@@ -278,8 +278,8 @@ while ($i < count($debiteurs) && $j < count($crediteurs)) {
                     <div class="buttons is-flex is-flex-direction-column mt-5">
 
                         <!-- Bouton pour exporter toutes les dépenses du groupe au format PDF -->
-                        <a href="export_pdf.php?group_id=<?= $group_id ?>" class="button is-info is-fullwidth"> 
-                            📄 PDF 
+                        <a href="export_pdf.php?group_id=<?= $group_id ?>" class="button is-danger is-fullwidth">
+                        EXPORT PDF
                         </a>
 
                         <!-- Lien vers la création d'une dépense dans ce groupe -->
