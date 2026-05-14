@@ -2,100 +2,110 @@
 <html lang="fr"> 
     <head>
         <meta charset="UTF-8">
+        <!-- Permet d'adapter la largeur de l'écran pour la version mobile sans que la page ne s'affiche en tout petit -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Création groupe </title>
-        <!-- balise permettant de relier notre HTML au framework bulma-->
+        <!-- Charge le framework CSS Bulma depuis internet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     </head>
     <body style="background-color: var(--bulma-success-dark);">
+       
         <!-- En-tête : logo cliquable qui ramène au dashboard, bouton déconnexion à droite -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
+        <!--display: flex + justify-content: space-between : place le logo à gauche et le bouton à droite, avec tout l'espace entre eux-->
+            
+            <!--Logo Divvyo à gauche-->
             <a href="../api/dashboard.php">
                 <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
             </a>
+            <!-- Bouton se déconnecter à droite-->
             <a href="../api/deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
         </div>
-        <!-- CSS : création du "contenant" du formulaire cadre blanc-->
+
         <section class="section" style="min-height: calc(100vh - 70px);">
+        <!-- calc(100vh - 70px) : la section prend toute la hauteur de l'écran moins les 70px de l'en-tête, permet d'éviter d'avoir une scrollbar inutile-->
             <div class="container" style="max-width: 500px;">
                 <div class="box">
 
-        <!-- action corrigé : pointe vers le bon fichier PHP dans api/ -->
-        <form action="../api/creation_groupe_reception_des_donnees.php" method="post">
+                    <!-- Formulaire -->
+                    <form action="../api/creation_groupe_reception_des_donnees.php" method="post">
 
-        <!-- CSS : ajout de classe pour changer l'apparence du titre -->
-        <h1 class="has-text-centered title has-text-primary-bold"> Créer un groupe de dépense </h1>
+                        <h1 class="has-text-centered title has-text-primary-bold"> Créer un groupe de dépense </h1>
 
-        <!-- Nom du groupe → colonne "name" dans account_groups -->
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_nom_groupe"> Nom du groupe : </label>
-            <div class="control">
-                <input class="input is-small" type="text" name="group_name" placeholder="Vacances Barcelone" id="id_pour_input_nom_groupe" required>
-            </div>
-        </div>
+                        <!-- Nom du groupe -->
+                        <div class="field">
+                            <label class="label mb-3" for="id_pour_input_nom_groupe"> Nom du groupe : </label>
+                            <div class="control">
+                                <input class="input is-small" type="text" name="group_name" placeholder="Vacances Barcelone" id="id_pour_input_nom_groupe" required>
+                            </div>
+                        </div>
 
-        <!-- Description du groupe → colonne "description" dans account_groups -->
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_description_groupe"> Description du groupe : </label>
-            <div class="control">
-                <input class="input is-small" type="text" id="id_pour_input_description_groupe" name="group_description" required>
-            </div>
-        </div>
+                        <!-- Description du groupe-->
+                        <div class="field">
+                            <label class="label mb-3" for="id_pour_input_description_groupe"> Description du groupe : </label>
+                            <div class="control">
+                                <input class="input is-small" type="text" id="id_pour_input_description_groupe" name="group_description" required>
+                            </div>
+                        </div>
 
-        <!-- Devise → colonne "currency" dans account_groups -->
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_devises"> Devise : </label>
-            <div class="control">
-                <div class="select is-fullwidth">
-                    <select name="currency" id="id_pour_input_devises">
-                        <option value="EUR">Euro</option>
-                        <option value="USD">Dollar américain</option>
-                        <option value="JPY">Yen</option>
-                        <option value="GBP">Livre sterling</option>
-                        <option value="AUD">Dollar australien</option>
-                        <option value="Autre">Autre</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+                        <!-- Devise - Liste déroulante -->
+                        <div class="field">
+                            <label class="label mb-3" for="id_pour_input_devises"> Devise : </label>
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="currency" id="id_pour_input_devises">
+                                        <option value="EUR">Euro</option>
+                                        <option value="USD">Dollar américain</option>
+                                        <option value="JPY">Yen</option>
+                                        <option value="GBP">Livre sterling</option>
+                                        <option value="AUD">Dollar australien</option>
+                                        <option value="Autre">Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Membres : on entre leurs emails pour les retrouver dans la table users -->
-        <!-- Membre 1 obligatoire, les autres optionnels -->
-                <!-- Membres : champs dynamiques, on peut en ajouter autant qu'on veut -->
-        <div class="field">
-            <label class="label mb-3"> Membres : </label>
-            <!-- Conteneur où les champs sont ajoutés dynamiquement -->
-            <div id="membres_container">
-                <!-- Premier membre obligatoire -->
-                <div class="control mb-2">
-                    <input class="input is-small" type="email" name="members[]" placeholder="alexia@gmail.com" required>
-                </div>
-            </div>
-        </div>
+                        <!-- Membre 1 obligatoire, les autres optionnels -->
+                        <!-- Membres : champs dynamiques, on peut en ajouter autant qu'on veut -->
+                        <div class="field">
+                            <label class="label mb-3"> Membres : </label>
+                            <!-- Conteneur où les champs sont ajoutés dynamiquement -->
+                            <div id="membres_container">
+                                <!-- Premier membre obligatoire -->
+                                <div class="control mb-2">
+                                    <input class="input is-small" type="email" name="members[]" placeholder="alexia@gmail.com" required>
+                                </div>
+                            </div>
+                        </div>
 
-        <!-- Bouton pour ajouter un nouveau champ email -->
-        <button type="button" class="button  is-success is-soft is-small mb-4" onclick="ajouterMembre()">
-            + Ajouter un membre
-        </button>
+                        <!-- Bouton pour ajouter un nouveau membre -->
+                        <button type="button" class="button  is-success is-soft is-small mb-4" onclick="ajouterMembre()">
+                            + Ajouter un membre
+                        </button>
+                        <!--onclick="ajouterMembre()" : appelle la fonction JavaScript-->
 
-        <!-- Bouton de soumission -->
-        <button type="submit" class="button is-success is-soft is-fullwidth mt-4"> Créer le groupe </button>
+                        <!-- Bouton de soumission -->
+                        <button type="submit" class="button is-success is-soft is-fullwidth mt-4"> Créer le groupe </button>
 
-        <!-- Lien retour vers la page d'accueil -->
-        <br>
-        <p class="has-text-centered">
-            <a href="../api/dashboard.php">← Retour à l'accueil</a>
-        </p>
+                        <!-- Lien retour vers la page d'accueil -->
+                        <br>
+                        <p class="has-text-centered">
+                            <a href="../api/dashboard.php">← Retour à l'accueil</a>
+                        </p>
 
-        </form>
+                    </form>
                 </div>
             </div>
         </section>
-                <script>
+        
+        <!-- Fonction JavaScript-->
+        <script>
             // Ajoute un nouveau champ email dans le conteneur
             function ajouterMembre() {
                 const container = document.getElementById('membres_container');
+                // getElementById('membres_container') : récupère le conteneur
                 const div = document.createElement('div');
+                //createElement('div') : crée un nouveau div en mémoire
                 div.className = 'control mb-2';
                 div.style.display = 'flex';
                 div.style.gap = '8px';
@@ -104,7 +114,10 @@
                     <input class="input is-small" type="email" name="members[]" placeholder="email@exemple.com">
                     <button type="button" class="button is-danger is-light is-small" onclick="this.parentElement.remove()">✕</button>
                 `;
+                //div.innerHTML : définit le contenu HTML du nouveau div : un champ email + un bouton ✕
+                //this.parentElement.remove() : sur le bouton ✕, this est le bouton lui-même, parentElement est le div qui le contient : on supprime donc tout le bloc
                 container.appendChild(div);
+                //container.appendChild(div) : ajoute le nouveau div à la fin du conteneur
             }
         </script>
     </body>
