@@ -2,12 +2,13 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <!-- Permet d'adapter la largeur de l'écran pour la version mobile sans que la page ne s'affiche en tout petit -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Inscription </title>
-        <!-- balise permettant de relier notre HTML au framework bulma-->
+        <!-- Charge le framework CSS Bulma depuis internet -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
         <style>
-            /* Sur mobile, on réduit le padding du formulaire pour qu'il respire mieux */
+            /* réduit l'espace intérieur(padding) du panneau droit pour que le formulaire prenne plus de place, s'applique uniquement si l'écran fait moins de 768px de large (donc sur mobile)*/
             @media (max-width: 768px) {
                 .panneau-droit {
                     padding: 1.5rem 1rem !important;
@@ -15,14 +16,7 @@
             }
         </style>
         <style>
-            /* Correction du style iOS sur les champs auto-remplis */
-            input:-webkit-autofill,
-            input:-webkit-autofill:hover,
-            input:-webkit-autofill:focus {
-                -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-                -webkit-text-fill-color: #363636 !important;
-            }
-            /* Force la couleur des labels sur mobile iOS */
+            /* Force la couleur des labels sur mobile iOS - sinon presque invisibles */
             .label {
                 color: #363636 !important;
             }
@@ -30,121 +24,137 @@
     </head>
         <body style="background-color: var(--bulma-success-dark);">
         <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--bulma-success-dark); padding: 1.5rem;">
+        <!--min-height: 100vh : la section prend au minimum toute la hauteur de l'écran-->
+        <!--display: flex + align-items: center + justify-content: center : centre le contenu horizontalement et verticalement-->
+            
+        <!--Les 2 panneaux-->
             <div style="display: flex; width: 100%; max-width: 1000px; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.12);">
-
-                <!-- Panneau gauche : image de présentation, masquée sur mobile -->
+            <!--display: flex : place les deux panneaux l'un à côté de l'autre-->   
+                
+            <!-- Panneau gauche : image de présentation, masquée sur mobile -->
                 <div class="is-hidden-mobile" style="flex: 0 0 45%; background-image: url('../assets/slogan_inscription.png'); background-size: cover; background-position: center;">
+                <!--is-hidden-mobile : classe Bulma qui masque cet élément sur mobile-->
+                <!--flex: 0 0 45% : ce panneau prend exactement 45% de la largeur-->
+                <!--background-image : affiche l'image comme fond du panneau-->
                 </div>
 
-                <!-- Panneau droit : formulaire d'inscription -->
+            <!-- Panneau droit : formulaire d'inscription -->
                 <div class="panneau-droit" style="flex: 1; background: white; padding: 3rem 2.5rem; overflow-y: auto;">
+                <!--flex: 1 : prend tout l'espace restant (les 55%)-->
 
         <form action="../api/inscription_reception_des_donnees.php" method="post">
+        <!--action : quand on clique sur "Envoyer", les données partent vers le fichier PHP indiqué --> 
+        <!--method="post" : les données voyagent dans le corps de la requête (invisibles dans l'URL)-->
+        
         <h1 class="has-text-centered title" style="color: var(--bulma-success-dark);"> Inscription </h1>
 
         <!-- Zones de texte -->
-         <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-                <!-- Prénom et Nom côte à côte sur la même ligne -->
-            <div class="columns">
-                <div class="column">
-                    <div class="field">
-                        <label class="label mb-3" for="id_pour_input_prenom"> Prénom : </label>
-                        <div class="control">
-                            <input class="input is-small" type="text" name="firstname" placeholder="Claude" id="id_pour_input_prenom" required>
+
+            <!-- Prénom et Nom côte à côte sur la même ligne -->
+                <div class="columns">
+                <!--columns = classe Bulma qui place automatiquement les column enfants côte à côte-->
+                    <div class="column">
+                        <div class="field">
+                        <!--field + control : structure standard Bulma pour espacer les champs-->
+                            <label class="label mb-3" for="id_pour_input_prenom"> Prénom : </label>
+                            <div class="control">
+                                <input class="input is-small" type="text" name="firstname" placeholder="Claude" id="id_pour_input_prenom" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label mb-3" for="id_pour_input_nom"> Nom : </label>
+                            <div class="control">
+                                <input class="input is-small" type="text" name="lastname" placeholder="Dupont" id="id_pour_input_nom" required>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="field">
-                        <label class="label mb-3" for="id_pour_input_nom"> Nom : </label>
-                        <div class="control">
-                            <input class="input is-small" type="text" name="lastname" placeholder="Dupont" id="id_pour_input_nom" required>
-                        </div>
+        
+            <!-- Date de naissance-->
+                <div class="field">
+                    <label class="label mb-3" for="id_pour_input_datedenaissance"> Date de naissance : </label>
+                    <div class="control">
+                        <input class="input is-small" type="date" name="birthdate" id="id_pour_input_datedenaissance" required>
                     </div>
                 </div>
-            </div>
-        
-          <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-           <div class="field">
-        <label class="label mb-3" for="id_pour_input_datedenaissance"> Date de naissance : </label>
-            <div class="control">
-            <!-- CSS : Rendre le cadre moins épais-->
-            <input class="input is-small" type="date" name="birthdate" id="id_pour_input_datedenaissance" required>
-            </div>
-           </div>
 
-           <!-- Champ téléphone : ajouté car la colonne phone_number est obligatoire (NOT NULL) dans la table users en BD -->
-           <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-           <div class="field">
-        <label class="label mb-3" for="id_pour_input_telephone"> Numéro de téléphone : </label>
-            <div class="control">
-            <!-- type="tel" : indique au navigateur que c'est un numéro de téléphone (clavier adapté sur mobile) -->
-            <input class="input is-small" type="tel" name="phone_number" id="id_pour_input_telephone" placeholder="+32 470 00 00 00" required>
-            </div>
-           </div>
+            <!-- Numéro de téléphone-->
+                <div class="field">
+                    <label class="label mb-3" for="id_pour_input_telephone"> Numéro de téléphone : </label>
+                    <div class="control">
+                        <input class="input is-small" type="tel" name="phone_number" id="id_pour_input_telephone" placeholder="+32 470 00 00 00" required>
+                    </div>
+                </div>
 
-           <!-- Champ pays : ajouté car la colonne country est obligatoire (NOT NULL) dans la table users en BD -->
-           <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-           <div class="field">
-        <label class="label mb-3" for="id_pour_input_pays"> Pays : </label>
-            <div class="control">
-            <input class="input is-small" type="text" name="country" id="id_pour_input_pays" placeholder="Belgique" required>
-            </div>
-           </div>
-        
-           <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-            <div class="field">
-        <label class="label mb-3" for="id_pour_input_email"> Email: </label>
-            <div class="control"> 
-            <!-- CSS : Rendre le cadre moins épais-->
-            <input class="input is-small" type="email"name="email" placeholder="exemple.email@gmail.com" id="id_pour_input_email"required>
-            </div>
-            </div>
+            <!-- Pays -->
+                <div class="field">
+                    <label class="label mb-3" for="id_pour_input_pays"> Pays : </label>
+                    <div class="control">
+                        <input class="input is-small" type="text" name="country" id="id_pour_input_pays" placeholder="Belgique" required>
+                    </div>
+                </div>
+            
+            <!-- Email-->
+                <div class="field">
+                    <label class="label mb-3" for="id_pour_input_email"> Email: </label>
+                    <div class="control"> 
+                        <input class="input is-small" type="email"name="email" placeholder="exemple.email@gmail.com" id="id_pour_input_email"required>
+                    </div>
+                </div>
 
-            <!-- CSS : Ajouter un espacement entre le cadre et le label (2 div)-->
-             <div class="field">
-         <label class="label mb-3" for="id_pour_input_mdp"> Mot de passe :</label>
-            <div class="control has-icons-right">
-                <input class="input is-small" type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
-                <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp', this)">
-                    🙈
-                </span>
-            </div>
-             </div>
+            <!-- Mot de passe-->
+                <div class="field">
+                    <label class="label mb-3" for="id_pour_input_mdp"> Mot de passe :</label>
+                    <div class="control has-icons-right">
+                    <!--has-icons-right : classe Bulma qui réserve de l'espace à droite du champ pour l'icône-->
+                        <input class="input is-small" type="password" id="id_pour_input_mdp" name="password" placeholder="Entrez votre mot de passe" minlength="8" required>
+                        <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp', this)">
+                        🙈
+                        <!--onclick : au clic, appelle la fonction JavaScript togglePassword en lui passant l'id du champ et l'icône elle-même (this)-->
+                        </span>
+                    </div>
+                </div>
 
+            <!-- Confirmation de mot de passe-->
+                <div class="field">
+                    <label class="label mb-3" for="id_pour_input_mdp_confirmation"> Confirmer le mot de passe : </label>
+                    <div class="control has-icons-right">
+                        <input class="input is-small" type="password" id="id_pour_input_mdp_confirmation" name="password_confirm" placeholder="Confirmez votre mot de passe" required>
+                        <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp_confirmation', this)">
+                            🙈
+                        </span>
+                    </div>
+                </div>
 
-        <div class="field">
-            <label class="label mb-3" for="id_pour_input_mdp_confirmation"> Confirmer le mot de passe : </label>
-            <div class="control has-icons-right">
-                <input class="input is-small" type="password" id="id_pour_input_mdp_confirmation" name="password_confirm" placeholder="Confirmez votre mot de passe" required>
-                <span class="icon is-right" style="pointer-events: all; cursor: pointer;" onclick="togglePassword('id_pour_input_mdp_confirmation', this)">
-                    🙈
-                </span>
-            </div>
-        </div>
-
-        <!-- Zone bouton d'envoie-->
-         <!-- CSS : Ajout de has-text-white + espacer du reste des champs-->
-         <button type ="submit" name="bouton submit" class="button is-success is-soft is-fullwidth has-text var(--bulma-success-dark) mt-4"> Envoyer </button>
-         <br>
-         <p class="has-text-centered">
-             Déjà un compte ? <a href="../index.html">Se connecter</a>
-         </p>
-        </form>
+                    <!-- Zone bouton d'envoie-->
+                        <button type ="submit" name="bouton submit" class="button is-success is-soft is-fullwidth has-text var(--bulma-success-dark) mt-4"> Envoyer </button>
+                        <br>
+                        <!--Lien de redirection-->
+                        <p class="has-text-centered">
+                            Déjà un compte ? <a href="../index.html">Se connecter</a>
+                        </p>
+                    </form>
                 </div>
             </div>
         </section>
-        <script>
-            function togglePassword(inputId, icon) {
-            const input = document.getElementById(inputId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.textContent = '🙉';  // mot de passe visible
-            } else {
-                input.type = 'password';
-                icon.textContent = '🙈';  // mot de passe caché
+        
+        <!-- Fonction JavaScript-->
+            <script>
+                function togglePassword(inputId, icon) {
+                const input = document.getElementById(inputId);
+                /*getElementById : récupère le champ par son id*/
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.textContent = '🙉';  
+                    /* mot de passe visible*/
+                } else {
+                    input.type = 'password';
+                    icon.textContent = '🙈';  
+                    /* mot de passe caché*/
+                }
             }
-        }
-        </script>
-    </body>
+            </script>
+        </body>
 </html>
