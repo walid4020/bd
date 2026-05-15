@@ -235,11 +235,7 @@ if ($group_id) {
                         <?php endforeach; ?>
                     </div>
 
-                     <!-- Bouton exporter les dépenses en PDF -->
-                        <a href="export_pdf.php?group_id=<?= $group_id ?>"
-                         class="button is-success is-soft is-fullwidth mb-4">
-                        EXPORT PDF
-                        </a>
+                    <!-- Bouton ajouter une dépense -->    
                     <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>"
                        class="button is-success is-soft is-fullwidth mb-4">
                         + Dépense
@@ -300,6 +296,12 @@ if ($group_id) {
                             </div>
                         <?php endforeach; ?>
                     <?php endif; ?>
+
+                     <!-- Bouton exporter les dépenses en PDF -->
+                        <a href="export_pdf.php?group_id=<?= $group_id ?>"
+                         class="button is-success is-soft is-fullwidth mb-4">
+                        EXPORT PDF
+                        </a>
 
                     <!-- Bouton suppression, affiché une seule fois après les remboursements -->
                     <form action="suppression_groupe.php" method="post" class="mt-4"
