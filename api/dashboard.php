@@ -235,11 +235,10 @@ if ($group_id) {
                         <?php endforeach; ?>
                     </div>
 
-                    <!-- Bouton ajouter une dépense dans ce groupe -->
                      <!-- Bouton exporter les dépenses en PDF -->
                         <a href="export_pdf.php?group_id=<?= $group_id ?>"
-                         class="button is-danger is-soft is-fullwidth mb-4">
-                        📄 EXPORT PDF
+                         class="button is-success is-soft is-fullwidth mb-4">
+                        EXPORT PDF
                         </a>
                     <a href="formulaire_creation_depenses.php?group_id=<?= $group_id ?>"
                        class="button is-success is-soft is-fullwidth mb-4">
