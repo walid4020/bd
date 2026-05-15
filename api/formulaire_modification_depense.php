@@ -77,7 +77,7 @@ $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
             <div class="container" style="max-width: 500px;">
                 <div class="box">
 
-                    <h1 class="has-text-centered title has-text-primary">
+                    <h1 class="has-text-centered title has-text-success-bold">
                         Modifier une dépense
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
