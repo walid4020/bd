@@ -300,7 +300,7 @@ if ($group_id) {
                      <!-- Bouton exporter les dépenses en PDF -->
                         <a href="export_pdf.php?group_id=<?= $group_id ?>"
                          class="button is-success is-soft is-fullwidth mb-4">
-                        EXPORT PDF
+                        Exporter les dépenses
                         </a>
 
                     <!-- Bouton suppression, affiché une seule fois après les remboursements -->
