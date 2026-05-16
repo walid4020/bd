@@ -28,6 +28,7 @@
     try {
         $dsn = 'mysql:host=' . SERVER . ';dbname=' . BASE . ';charset=utf8';
         $connexion = new PDO($dsn, USER, PASSWD);
+        // gestion de l'erreur 
     } catch (PDOException $e) {
         die('Échec de la connexion à la base de données');
     }
@@ -42,26 +43,24 @@
     $stmt_check = $connexion->prepare("
         SELECT account_group_id FROM group_users
         WHERE account_group_id = :group_id AND user_id = :user_id
-    ");
+    ");``
+        // requête SQL : cherche dans la table group_users une ligne où l'id du groupe est celui qu'on a reçu ET où l'id de l'utilisateur est celui de la personne connectée.
+    // si refus : 
     $stmt_check->execute(['group_id' => $group_id, 'user_id' => $user_id]);
     if (!$stmt_check->fetch()) {
         die('Accès refusé : vous n\'êtes pas membre de ce groupe.');
     }
 
-    // a commenter !!!!!
-    // 6. RÉCUPÉRATION DU NOM DU GROUPE
+    // RÉCUPÉRATION DU NOM DU GROUPE
     // Pour l'afficher dans le titre de la page 
     $stmt_groupe = $connexion->prepare("
         SELECT name, currency FROM account_groups WHERE id = :group_id
     ");
+    // requête SQL : cherche dans la table account_groups le nom et la devise du groupe dont l'id correspond à celui qu'on a reçu
     $stmt_groupe->execute(['group_id' => $group_id]);
     $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
 
     // RÉCUPÉRATION DES DÉPENSES DU GROUPE
-    // On joint la table expenses avec users pour afficher le prénom de la personne qui a payé
-    // Colonnes utilisées : description, amount, payer_id, expense_date
-    // LEFT JOIN relie la table expenses à la table users pour récupérer le prénom/nom de la personne qui a payé. 
-    // LEFT signifie qu'on garde la dépense même si le payeur n'est plus trouvé en BD.
     $stmt_depenses = $connexion->prepare("
         SELECT
             e.id,
@@ -76,13 +75,12 @@
         WHERE e.account_group_id = :group_id
         ORDER BY e.expense_date DESC
     ");
+    // requête SQL : cherche dans la table expenses toutes les dépenses qui appartiennent à ce groupe, et pour chacune, va chercher le prénom et le nom de la personne qui a payé dans la table users. Trie les résultats du plus récent au plus ancien.
     $stmt_depenses->execute(['group_id' => $group_id]);
     $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
 
     // CALCUL DES SOLDES PAR MEMBRE
     // On additionne tout ce que chaque membre a payé dans ce groupe
-    // SUM additionne toutes les dépenses d'un membre. COALESCE(..., 0) remplace NULL par 0 si le membre n'a aucune dépense.
-    // INNER JOIN ici (vs LEFT JOIN) : on ne garde que les utilisateurs qui sont bien membres du groupe.
     $stmt_soldes = $connexion->prepare("
         SELECT
             u.id,
@@ -95,6 +93,7 @@
         WHERE gu.account_group_id = :group_id
         GROUP BY u.id, u.first_name, u.last_name
     ");
+    // requête SQL : Sélectionne l'id, le prénom, le nom de chaque utilisateur ainsi que la somme de tout ce qu'il a payé (ou 0 s'il n'a rien payé) depuis la table users, en faisant une jointure avec group_users pour ne garder que les membres de ce groupe, et une jointure avec expenses pour récupérer leurs dépenses dans ce groupe, filtre pour ce groupe, et regroupe les résultats par membre.
     $stmt_soldes->execute(['group_id' => $group_id]);
     $membres_soldes = $stmt_soldes->fetchAll(PDO::FETCH_ASSOC);
 
@@ -129,8 +128,10 @@
         }
     }
     // On calcule les remboursements à faire (qui doit combien à qui)
+    // On crée un tableau vide qui va stocker les remboursements à faire. $i pointe sur le débiteur actuel, $j sur le créancier actuel.
     $remboursements = [];
     $i = 0; $j = 0;
+    // boucle while : On continue tant qu'il reste des débiteurs ET des créanciers à traiter. Dès qu'une des deux listes est épuisée, c'est terminé.
     while ($i < count($debiteurs) && $j < count($crediteurs)) {
         $montant = min(abs($debiteurs[$i]['solde']), $crediteurs[$j]['solde']);
         //On sépare les membres en deux listes : créanciers (solde positif) et débiteurs (solde négatif)
@@ -138,13 +139,17 @@
         // On avance dans la liste ($i++ ou $j++) quand un remboursement est soldé
         // 0.01 comme seuil : ignore les différences de centimes dues aux arrondis
 
+        // enregistrement du remboursement 
+            //On ajoute un remboursement dans le tableau : qui paie (de), qui reçoit (a), combien (montant)
         $remboursements[] = [
             'de'     => $debiteurs[$i]['nom'],
             'a'      => $crediteurs[$j]['nom'],
             'montant'=> $montant,
         ];
+        //On réduit les soldes des deux personnes du montant remboursé. 
         $debiteurs[$i]['solde'] += $montant;
         $crediteurs[$j]['solde'] -= $montant;
+        // Si le solde est inférieur à 0.01€, la personne est soldée et on passe à la suivante dans la liste. Le seuil de 0.01€ évite des bugs dus aux arrondis des nombres décimaux.
         if (abs($debiteurs[$i]['solde']) < 0.01) $i++;
         if ($crediteurs[$j]['solde'] < 0.01) $j++;
     }
