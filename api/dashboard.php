@@ -1,16 +1,17 @@
+<!-- PARTIE PHP -->
 <?php
 // Dashboard principal - vue globale de l'utilisateur connecté
 
-// 1. DÉMARRAGE DE LA SESSION
+// DÉMARRAGE DE LA SESSION
 session_start();
 
-// Si l'utilisateur n'est pas connecté, on le renvoie au login
+// Vérifie que l'utilisateur est bien connecté avant de continuer
 if (!isset($_SESSION['user'])) {
     header('Location: ../index.html');
     exit;
 }
 
-// 2. CONNEXION À LA BASE DE DONNÉES
+// CONNEXION À LA BASE DE DONNÉES
 define('USER', 'vy44dy72oodv');
 define('PASSWD', 'd3-d2d!4oo');
 define('SERVER', 'localhost');
@@ -19,13 +20,14 @@ define('BASE', 'ebus2_projet04_viiy78');
 try {
     $dsn = 'mysql:host=' . SERVER . ';dbname=' . BASE . ';charset=utf8';
     $connexion = new PDO($dsn, USER, PASSWD);
+    // gestion de l'erreur 
 } catch (PDOException $e) {
     die('Échec de la connexion à la base de données');
 }
 
 $user_id = $_SESSION['user']['id'];
 
-// 3. RÉCUPÉRATION DE TOUS LES GROUPES DE L'UTILISATEUR (panneau gauche)
+// RÉCUPÉRATION DE TOUS LES GROUPES DE L'UTILISATEUR (panneau gauche)
 $stmt_groupes = $connexion->prepare("
     SELECT ag.id, ag.name, ag.description, ag.currency
     FROM account_groups ag
@@ -33,23 +35,30 @@ $stmt_groupes = $connexion->prepare("
     WHERE gu.user_id = :user_id
     ORDER BY ag.created_at DESC
 ");
+/* requête SQL : Sélectionne l'id, le nom, la description et la devise depuis la table account_groups, 
+fais une jointure avec group_users pour ne garder que les groupes dont l'account_group_id correspond à l'id du groupe, 
+filtre pour ne garder que les groupes où l'user_id correspond à celui de l'utilisateur connecté,
+ et trie les résultats par date de création du plus récent au plus ancien */ 
 $stmt_groupes->execute(['user_id' => $user_id]);
 $groupes = $stmt_groupes->fetchAll(PDO::FETCH_ASSOC);
 
-// 4. GROUPE SÉLECTIONNÉ : celui passé dans l'URL, ou le premier de la liste par défaut
+// GROUPE SÉLECTIONNÉ : celui passé dans l'URL, ou le premier de la liste par défaut
 $group_id = null;
 $groupe_selectionne = null;
 $membres = [];
 $depenses = [];
 $remboursements = [];
-
+    /* Si un group_id est présent dans l'URL (ex: dashboard.php?group_id=3), on l'utilise. Le (int) force la valeur à être 
+    un entier pour des raisons de sécurité.*/ 
 if (isset($_GET['group_id'])) {
     $group_id = (int) $_GET['group_id'];
+    /* Sinon, si l'utilisateur a au moins un groupe, on prend automatiquement le premier de la liste ([0] = premier 
+    élément du tableau). */ 
 } elseif (!empty($groupes)) {
     $group_id = $groupes[0]['id'];
 }
 
-// 5. SI UN GROUPE EST SÉLECTIONNÉ, ON CHARGE SES DONNÉES (panneau droit)
+// SI UN GROUPE EST SÉLECTIONNÉ, ON CHARGE SES DONNÉES (panneau droit)
 if ($group_id) {
 
     // Vérification que l'utilisateur appartient bien à ce groupe
@@ -57,6 +66,8 @@ if ($group_id) {
         SELECT account_group_id FROM group_users
         WHERE account_group_id = :group_id AND user_id = :user_id
     ");
+    /* requête SQL : Sélectionne account_group_id depuis la table group_users où account_group_id est égal à l'id du groupe 
+    et user_id est égal à l'id de l'utilisateur connecté */
     $stmt_check->execute(['group_id' => $group_id, 'user_id' => $user_id]);
 
     if (!$stmt_check->fetch()) {
@@ -67,6 +78,8 @@ if ($group_id) {
         $stmt_detail = $connexion->prepare("
             SELECT name, description, currency FROM account_groups WHERE id = :group_id
         ");
+        /* requête SQL : Sélectionne le name, la description et la currency depuis la table account_groups où l'id est égal 
+        à l'id du groupe*/ 
         $stmt_detail->execute(['group_id' => $group_id]);
         $groupe_selectionne = $stmt_detail->fetch(PDO::FETCH_ASSOC);
 
@@ -78,6 +91,9 @@ if ($group_id) {
             WHERE gu.account_group_id = :group_id
             ORDER BY u.first_name ASC
         ");
+        /* requête SQL : Sélectionne le first_name et le last_name depuis la table users, fais une jointure avec group_users 
+        pour ne garder que les utilisateurs dont le user_id correspond à l'id de l'utilisateur, filtre pour ne garder que les 
+        membres de ce groupe, et trie les résultats par prénom dans l'ordre alphabétique.*/ 
         $stmt_membres->execute(['group_id' => $group_id]);
         $membres = $stmt_membres->fetchAll(PDO::FETCH_ASSOC);
 
@@ -90,6 +106,10 @@ if ($group_id) {
             WHERE e.account_group_id = :group_id
             ORDER BY e.expense_date DESC
         ");
+        /* requête SQL : Sélectionne l'id, la description, le amount, la expense_date et le payer_id depuis la table expenses, 
+        ainsi que le first_name et le last_name depuis la table users renommés payer_first_name et payer_last_name, 
+        fais une jointure avec users pour relier chaque dépense à la personne qui a payé via le payer_id, filtre pour ne 
+        garder que les dépenses de ce groupe, et trie les résultats par date de la plus récente à la plus ancienne */ 
         $stmt_depenses->execute(['group_id' => $group_id]);
         $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
 
@@ -103,6 +123,11 @@ if ($group_id) {
             WHERE gu.account_group_id = :group_id
             GROUP BY u.id, u.first_name, u.last_name
         ");
+        /* requête SQL : Sélectionne l'id, le first_name et le last_name depuis la table users, ainsi que la somme de tous 
+        les montants payés par chaque membre (ou 0 s'il n'a rien payé) renommée total_paye, fais une jointure avec group_users 
+        pour ne garder que les membres de ce groupe, fais une jointure avec expenses pour relier les dépenses à chaque membre 
+        dans ce groupe, filtre pour ne garder que les membres de ce groupe, et regroupe les résultats par membre pour que 
+        la somme soit calculée par personne */ 
         $stmt_soldes->execute(['group_id' => $group_id]);
         $membres_soldes = $stmt_soldes->fetchAll(PDO::FETCH_ASSOC);
 
@@ -136,12 +161,16 @@ if ($group_id) {
     }
 }
 ?>
+
+<!-- PARTIE HTML --> 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta name="color-scheme" content="light">
+    <!-- Permet d'adapter la largeur de l'écran pour la version mobile sans que la page ne s'affiche en tout petit -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Divvyo – Dashboard</title>
+    <!-- Charge le framework CSS Bulma depuis internet -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
     <style>
         /* Sur mobile, les deux panneaux du dashboard s'empilent verticalement */
@@ -169,17 +198,25 @@ if ($group_id) {
         <!-- En-tête : logo à gauche, bouton déconnexion à droite -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.8rem 1.5rem;">
             <img src="../assets/logo.png" alt="Divvyo" style="max-height: 50px;">
+            <!-- Bouton se dédonnecter à droite --> 
             <a href="deconnexion.php" class="button is-danger is-light is-small">Se déconnecter</a>
         </div>
 
     <!-- MISE EN PAGE DEUX PANNEAUX -->
         <div class="deux-panneaux" style="display: flex; gap: 1rem; padding: 0 1rem 1rem; height: calc(100vh - 70px);">
+            <!-- calc(100vh - 70px) : la section prend toute la hauteur de l'écran moins les 70px de l'en-tête, 
+             permet d'éviter d'avoir une scrollbar inutile-->
+        
         <!-- PANNEAU GAUCHE (1/3) -->
         <div class="panneau-gauche" style="flex: 0 0 32%; display: flex; flex-direction: column; gap: 0.8rem; overflow: hidden;">           
         <!-- Message de bienvenue affiché en haut du panneau gauche -->
         <p style="color: white; font-weight: 600; font-size: 1.4rem; text-align: center;">
             Bienvenu <?= htmlspecialchars(explode(' ', $_SESSION['user']['displayName'])[0]) ?> 👋
         </p>
+            <!-- $_SESSION['user']['displayName'] : contient "Prénom Nom" 
+            explode(' ', ...) : découpe la chaîne en tableau en coupant à chaque espace 
+            [0] : prend uniquement le premier élément (prénom)
+h           tmlspecialchars() : sécurise l'affichage contre les failles XSS --> 
 
         <!-- Bouton créer un nouveau groupe -->
         <a href="../pages/formulaire_creation_groupe.html" class="button is-success is-soft is-fullwidth">
@@ -191,9 +228,12 @@ if ($group_id) {
             <div class="box" style="flex: 1; overflow-y: auto;">
                 <h2 class="title is-5 mb-3" style="color: var(--bulma-success-dark);">Mes groupes</h2>
 
+                <!-- Si aucun groupe : --> 
                 <?php if (empty($groupes)): ?>
                     <p class="has-text-grey">Aucun groupe pour l'instant.</p>
                 <?php else: ?>
+
+                    <!-- Liste des groupes sur la gauche --> 
                     <?php foreach ($groupes as $g): ?>
                         <!-- Chaque groupe recharge la page avec son ID dans l'URL -->
                         <a href="dashboard.php?group_id=<?= $g['id'] ?>"
