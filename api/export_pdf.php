@@ -21,6 +21,7 @@ define('PASSWD', 'd3-d2d!4oo');
 define('SERVER', 'localhost');
 define('BASE', 'ebus2_projet04_viiy78');
 
+// message d'erreur 
 try {
     $dsn = 'mysql:host=' . SERVER . ';dbname=' . BASE . ';charset=utf8';
     $connexion = new PDO($dsn, USER, PASSWD);
@@ -39,6 +40,7 @@ $stmt_groupe = $connexion->prepare("
     FROM account_groups
     WHERE id = :group_id
 ");
+// requête SQL : Sélectionne le name et la currency depuis la table account_groups où l'id est égal à l'id du groupe
 
 $stmt_groupe->execute([
     'group_id' => $group_id
@@ -62,6 +64,9 @@ $stmt_depenses = $connexion->prepare("
 
     WHERE e.account_group_id = :group_id
 ");
+/* requête SQL : Sélectionne la description, le amount, la expense_date depuis la table expenses, ainsi que le 
+first_name et le last_name depuis la table users, fais une jointure avec users pour relier chaque dépense à la personne 
+qui a payé via le payer_id, filtre pour ne garder que les dépenses de ce groupe */ 
 
 $stmt_depenses->execute([
     'group_id' => $group_id
