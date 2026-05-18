@@ -44,7 +44,8 @@
         SELECT account_group_id FROM group_users
         WHERE account_group_id = :group_id AND user_id = :user_id
     ");``
-        // requête SQL : cherche dans la table group_users une ligne où l'id du groupe est celui qu'on a reçu ET où l'id de l'utilisateur est celui de la personne connectée.
+        /* requête SQL : cherche dans la table group_users une ligne où l'id du groupe est celui qu'on a reçu ET où l'id de 
+        l'utilisateur est celui de la personne connectée */ 
     // si refus : 
     $stmt_check->execute(['group_id' => $group_id, 'user_id' => $user_id]);
     if (!$stmt_check->fetch()) {
@@ -56,7 +57,8 @@
     $stmt_groupe = $connexion->prepare("
         SELECT name, currency FROM account_groups WHERE id = :group_id
     ");
-    // requête SQL : cherche dans la table account_groups le nom et la devise du groupe dont l'id correspond à celui qu'on a reçu
+    /* requête SQL : cherche dans la table account_groups le nom et la devise du groupe dont l'id correspond à celui qu'on 
+    a reçu */ 
     $stmt_groupe->execute(['group_id' => $group_id]);
     $groupe = $stmt_groupe->fetch(PDO::FETCH_ASSOC);
 
@@ -75,7 +77,9 @@
         WHERE e.account_group_id = :group_id
         ORDER BY e.expense_date DESC
     ");
-    // requête SQL : cherche dans la table expenses toutes les dépenses qui appartiennent à ce groupe, et pour chacune, va chercher le prénom et le nom de la personne qui a payé dans la table users. Trie les résultats du plus récent au plus ancien.
+    /*requête SQL : cherche dans la table expenses toutes les dépenses qui appartiennent à ce groupe, et pour chacune,
+     va chercher le prénom et le nom de la personne qui a payé dans la table users. Trie les résultats du plus récent au 
+     plus ancien */ 
     $stmt_depenses->execute(['group_id' => $group_id]);
     $depenses = $stmt_depenses->fetchAll(PDO::FETCH_ASSOC);
 
@@ -93,7 +97,10 @@
         WHERE gu.account_group_id = :group_id
         GROUP BY u.id, u.first_name, u.last_name
     ");
-    // requête SQL : Sélectionne l'id, le prénom, le nom de chaque utilisateur ainsi que la somme de tout ce qu'il a payé (ou 0 s'il n'a rien payé) depuis la table users, en faisant une jointure avec group_users pour ne garder que les membres de ce groupe, et une jointure avec expenses pour récupérer leurs dépenses dans ce groupe, filtre pour ce groupe, et regroupe les résultats par membre.
+    /* requête SQL : Sélectionne l'id, le prénom, le nom de chaque utilisateur ainsi que la somme de tout ce qu'il a payé 
+    (ou 0 s'il n'a rien payé) depuis la table users, en faisant une jointure avec group_users pour ne garder que les membres 
+    de ce groupe, et une jointure avec expenses pour récupérer leurs dépenses dans ce groupe, filtre pour ce groupe,
+     et regroupe les résultats par membre */ 
     $stmt_soldes->execute(['group_id' => $group_id]);
     $membres_soldes = $stmt_soldes->fetchAll(PDO::FETCH_ASSOC);
 
@@ -149,7 +156,8 @@
         //On réduit les soldes des deux personnes du montant remboursé. 
         $debiteurs[$i]['solde'] += $montant;
         $crediteurs[$j]['solde'] -= $montant;
-        // Si le solde est inférieur à 0.01€, la personne est soldée et on passe à la suivante dans la liste. Le seuil de 0.01€ évite des bugs dus aux arrondis des nombres décimaux.
+        /* Si le solde est inférieur à 0.01€, la personne est soldée et on passe à la suivante dans la liste. 
+        Le seuil de 0.01€ évite des bugs dus aux arrondis des nombres décimaux */ 
         if (abs($debiteurs[$i]['solde']) < 0.01) $i++;
         if ($crediteurs[$j]['solde'] < 0.01) $j++;
     }
@@ -188,7 +196,8 @@
                     <h1 class="title has-text-success-bold has-text-centered">
                         <?= htmlspecialchars($groupe['name']) ?>
                         <!-- ?= ... ?> : raccourci PHP pour ?php echo ... ?> --> 
-                        <!--htmlspecialchars() : convertit les caractères spéciaux (<, >, ") en HTML pour éviter des failles XSS si le nom contient du code malveillant-->
+                        <!--htmlspecialchars() : convertit les caractères spéciaux (<, >, ") en HTML pour éviter des failles 
+                        XSS si le nom contient du code malveillant-->
                     </h1>
                     <p class="has-text-centered has-text-grey mb-5">
                         Devise du groupe : <?= htmlspecialchars($groupe['currency']) ?>
@@ -244,7 +253,8 @@
                                         
                                         <td>
                                             <!-- BOUTON MODIFIER --> 
-                                             <!-- Le bouton Modifier n'apparaît que si c'est l'utilisateur connecté qui a payé cette dépense —> on ne peut pas modifier la dépense de quelqu'un d'autre -->
+                                             <!-- Le bouton Modifier n'apparaît que si c'est l'utilisateur connecté qui a payé cette 
+                                              dépense —> on ne peut pas modifier la dépense de quelqu'un d'autre -->
                                             <?php if ($depense['payer_id'] == $user_id): ?>
                                                 <a href="formulaire_modification_depense.php?expense_id=<?= $depense['id'] ?>&group_id=<?= $group_id ?>"
                                                 class="button is-success is-soft is-small">
@@ -260,7 +270,8 @@
                     <?php endif; ?>
 
                     <!-- SECTION REMBOURSEMENTS : qui doit combien à qui -->
-                    <!--Affiche chaque remboursement calculé par l'algorithme PHP sous forme de notification Bulma. Si $remboursements est vide, on affiche "Tout le monde est quitte !"-->
+                    <!--Affiche chaque remboursement calculé par l'algorithme PHP sous forme de notification Bulma. 
+                    Si $remboursements est vide, on affiche "Tout le monde est quitte !"-->
                     <h2 class="subtitle has-text-success-bold has-text-centered mt-4">
                         Remboursements à faire
                     </h2>
