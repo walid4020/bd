@@ -92,6 +92,7 @@
         </div>
 
         <section class="section" style="min-height: calc(100vh - 70px);">
+        <!-- calc(100vh - 70px) : le navigateur calcule automatiquement la hauteur disponible en soustrayant les 70px de l'en-tête -->
             <div class="container" style="max-width: 500px;">
                 <div class="box">
 
@@ -99,6 +100,7 @@
                     <h1 class="has-text-centered title has-text-success-bold">
                         Nouvelle dépense
                     </h1>
+                    <!-- Affichage des noms des groupes et des devises depuis la BD--> 
                     <p class="has-text-centered has-text-grey mb-5">
                         Groupe : <?= htmlspecialchars($groupe['name']) ?> (<?= htmlspecialchars($groupe['currency']) ?>)
                     </p>
