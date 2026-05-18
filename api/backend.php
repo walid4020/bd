@@ -31,7 +31,7 @@
         exit;
     }
     
-    // MÉTHODE GET (Vérification de session)
+    // MÉTHODE GET (Vérification de session) = récupérer les données
         // Appelé automatiquement par app.js au chargement de la page pour savoir si l'utilisateur est déjà connecté.
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         if ($_GET['action'] == 'whoami') {
