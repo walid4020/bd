@@ -1,5 +1,6 @@
 <?php
-    //api/backend.php = fichier central qui gère toute l'authentification de l'app : reçoit les requêtes de app.js et traite trois actions : la connexion (login), la déconnexion (logout) et la vérification de session.
+    /*api/backend.php = fichier central qui gère toute l'authentification de l'app : reçoit les requêtes de app.js et 
+    traite trois actions : la connexion (login), la déconnexion (logout) et la vérification de session */ 
     session_start();
     
     // CONFIGURATION DE LA BASE DE DONNEES
@@ -9,7 +10,7 @@
     define('SERVER','localhost'); 
     define('BASE','ebus2_projet04_viiy78'); 
 
-    // 1. CONNEXION A LA BASE DE DONNEES 
+    // CONNEXION A LA BASE DE DONNEES 
     try {
         // Construction de l'identifiant de la source de données (DNS) 
         $dsn = 'mysql:host=' . SERVER . ';dbname=' . BASE . ';charset=utf8';
@@ -23,8 +24,9 @@
         exit;
     }
 
-    // 2. VÉRIFICATION DE L'ACTION
-        // L'action arrive dans l'URL : backend.php?action=login. Code 422 = "requête mal formée". Si aucune action n'est précisée, on arrête tout.
+    // VÉRIFICATION DE L'ACTION
+        /* L'action arrive dans l'URL : backend.php?action=login. Code 422 = "requête mal formée". Si aucune action n'est 
+        précisée, on arrête tout */ 
     if (!isset($_GET['action'])) {
         echo json_encode(['error' => 'Action manquante']);
         http_response_code(422);
@@ -61,11 +63,13 @@
         
         // ACTION : LOGIN
         if($_GET['action'] === 'login') {
-            //Vue.js envoie les données en JSON dans le corps de la requête. php://input lit lit corps brut, et json_decode() le convertit en tableau PHP.
+            /* Vue.js envoie les données en JSON dans le corps de la requête. php://input lit lit corps brut,
+            //  et json_decode() le convertit en tableau PHP */ 
             $data = json_decode(file_get_contents("php://input"), true);
 
             if (!isset($data['email']) || !isset($data['password'])) {
-            //isset() vérifie qu'une variable existe et n'est pas null. ! inverse la condition —> donc si l'email ou le mot de passe est absent, on renvoie une erreur et on arrête avec exit
+            /*isset() vérifie qu'une variable existe et n'est pas null. ! inverse la condition —> donc si l'email ou le 
+            mot de passe est absent, on renvoie une erreur et on arrête avec exit */ 
 
                 echo json_encode(['error' => 'Champs manquants']);
                 http_response_code(422);
@@ -97,7 +101,8 @@
             }
 
             // CREATION DE LA SESSION
-            // On stocke les infos de l'utilisateur dans la session PHP. C'est ce tableau qu'on retrouve dans tous les autres fichiers avec $_SESSION['user']
+            /* On stocke les infos de l'utilisateur dans la session PHP. C'est ce tableau qu'on retrouve dans tous les autres 
+            fichiers avec $_SESSION['user'] */ 
                 $_SESSION['user'] = [
                 'id'          => $user_from_db['id'],
                 'email'       => $user_from_db['email_address'],
