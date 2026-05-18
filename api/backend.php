@@ -140,7 +140,7 @@
                     time() - 42000, // date dans le passé => supression 
                     $params['path']);
             }
-            // SUPPRESSION DU COOKIE "rememner me"
+            // SUPPRESSION DU COOKIE "remember me"
             // On l'écrase avec une valeur vide et une date passée comme pour le cookie de la session
             setcookie(
                 'remember_user', 
