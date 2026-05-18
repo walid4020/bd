@@ -43,7 +43,8 @@ $stmt = $connexion->prepare("
     INSERT INTO account_groups (name, description, currency)
     VALUES (:name, :description, :currency)
 ");
-// requête SQL : insère une nouvelle ligne dans la table account_groups en remplissant les colonnes name, description et currency avec les valeurs fournies
+/* requête SQL : insère une nouvelle ligne dans la table account_groups en remplissant les colonnes name, 
+description et currency avec les valeurs fournies */ 
 $stmt->execute([
     'name'        => $group_name,
     'description' => $group_description,
@@ -51,7 +52,8 @@ $stmt->execute([
 ]);
 
 // Récupère l'ID du groupe qu'on vient de créer
-    // Après un INSERT, lastInsertId() retourne l'id généré automatiquement par la BD pour la ligne qu'on vient d'insérer. On en a besoin pour lier les membres à ce groupe
+    /* Après un INSERT, lastInsertId() retourne l'id généré automatiquement par la BD pour la ligne qu'on vient d'insérer.
+     On en a besoin pour lier les membres à ce groupe */ 
 $group_id = $connexion->lastInsertId();
 
 // AJOUT DES MEMBRES dans group_users
@@ -63,7 +65,8 @@ $stmt = $connexion->prepare("
     INSERT INTO group_users (account_group_id, user_id)
     VALUES (:group_id, :user_id)
 ");
-    //requête SQL :insère une nouvelle ligne dans la table group_users en remplissant les colonnes account_group_id et user_id avec les valeurs fournies
+    /* requête SQL :insère une nouvelle ligne dans la table group_users en remplissant les colonnes account_group_id et 
+    user_id avec les valeurs fournies */ 
 $stmt->execute([
     'group_id' => $group_id,
     'user_id'  => $creator_id,
